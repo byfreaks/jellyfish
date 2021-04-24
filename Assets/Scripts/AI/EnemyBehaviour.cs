@@ -1,5 +1,6 @@
 public enum EnemyBehaviour
 {
     Idle,
-    FollowPlayer
+    FollowPlayer,
+    Escape
 }

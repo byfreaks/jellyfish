@@ -5,11 +5,13 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     #region [HARDCODE] Load values from other System
-    public float SPEED = 100.0f;
     public int HEALTH = 5;
-    public float TIME_BETWEEN_SWAMS = 2.5f;
-    public float TIME_BETWEEN_SWAMS_FOLLOWING = 0.1f;
+    public float SPEED = 150.0f;
+    public float TIME_BETWEEN_SWAMS = 1.5f;
     public float SPEED_FOLLOWING = 50.0f;
+    public float TIME_BETWEEN_SWAMS_FOLLOWING = 0.1f;
+    public float SPEED_ESCAPE = 100.0f;
+    public float TIME_BETWEEN_SWAMS_ESCAPE = 0.1f;
     #endregion
 
     #region [REVIEW] Move to other Scripts
@@ -33,7 +35,7 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region AI Properties
-    private Vector2 currentDirection = Vector2.right;
+    public Vector2 currentDirection = Vector2.right;
     private float currentSpeed = 0;
     private float timeSinceLastSwam = 0;
     private float testTimeBetweenBehaviours = 0;
@@ -44,9 +46,23 @@ public class EnemyController : MonoBehaviour
     public void SetBehaviour(EnemyBehaviour newBehaviour)
     {
         if(newBehaviour == EnemyBehaviour.Idle)
+        {
             sr.color = new Color32(255,255,255,255);
+            enemy.Speed = SPEED;
+            enemy.TimeBetweenSwams = TIME_BETWEEN_SWAMS;
+        }
         else if(newBehaviour == EnemyBehaviour.FollowPlayer)
+        {
             sr.color = new Color32(255,100,0,255);
+            enemy.Speed = SPEED_FOLLOWING;
+            enemy.TimeBetweenSwams = TIME_BETWEEN_SWAMS_FOLLOWING;
+        }
+        else if(newBehaviour == EnemyBehaviour.Escape)
+        {
+            sr.color = new Color32(0,0,255,255);
+            enemy.Speed = SPEED_ESCAPE;
+            enemy.TimeBetweenSwams = TIME_BETWEEN_SWAMS_ESCAPE;
+        }
         currentBehaviour = newBehaviour;
     }
     #endregion
@@ -76,41 +92,29 @@ public class EnemyController : MonoBehaviour
         if(testTimeBetweenBehaviours > 10f)   
         {
             if(currentBehaviour == EnemyBehaviour.Idle) SetBehaviour(EnemyBehaviour.FollowPlayer);
-            else if(currentBehaviour == EnemyBehaviour.FollowPlayer) SetBehaviour(EnemyBehaviour.Idle);
+            else if(currentBehaviour == EnemyBehaviour.FollowPlayer) SetBehaviour(EnemyBehaviour.Escape);
+            else if(currentBehaviour == EnemyBehaviour.Escape) SetBehaviour(EnemyBehaviour.Escape);
             testTimeBetweenBehaviours = 0;
             timeSinceLastSwam = 0;
         }
 
-        //Movement Default or Idle
-        if(currentBehaviour == EnemyBehaviour.Idle)
+        //Swim again
+        if(timeSinceLastSwam > enemy.TimeBetweenSwams)
         {
-            if(timeSinceLastSwam > enemy.TimeBetweenSwams)
-            {
-                timeSinceLastSwam = 0;
-                currentSpeed = enemy.Speed;
-                currentDirection = new Vector2(-(currentDirection.x), Random.Range(-1f,1f));
-            }
-            rb.velocity = PhysicsHelper.calculateVelocity(ref currentSpeed, enemy.Speed, currentDirection, timeSinceLastSwam);
+            timeSinceLastSwam = 0;
+            currentSpeed = enemy.Speed;
+            
+            //Movement Default or Idle
+            if(currentBehaviour == EnemyBehaviour.Idle) 
+                currentDirection = new Vector2(-currentDirection.x, Random.Range(-0.2f,0.2f)).normalized;
+            //Follow Player
+            else if(currentBehaviour == EnemyBehaviour.FollowPlayer)
+                currentDirection = (Player.transform.position - transform.position).normalized;
+            //Escape
+            else if(currentBehaviour == EnemyBehaviour.Escape) 
+                currentDirection = -(Player.transform.position - transform.position).normalized;
         }
-        
-        //Follow Player
-        else if(currentBehaviour == EnemyBehaviour.FollowPlayer)
-        {
-            if(timeSinceLastSwam > TIME_BETWEEN_SWAMS_FOLLOWING)
-            {
-                timeSinceLastSwam = 0;
-                currentSpeed = SPEED_FOLLOWING;
-                currentDirection = (Player.transform.position - transform.position);
-                currentDirection += new Vector2(Random.Range(-5f,5f), Random.Range(-5f,5f));
-                currentDirection = currentDirection.normalized;
-            }
-            rb.velocity = PhysicsHelper.calculateVelocity(ref currentSpeed, enemy.Speed, currentDirection, timeSinceLastSwam);
-        }
-
-        //Attack
-
-        //Run away
+        rb.velocity = PhysicsHelper.calculateVelocity(ref currentSpeed, enemy.Speed, currentDirection, timeSinceLastSwam);
     }
     #endregion
 }
-
