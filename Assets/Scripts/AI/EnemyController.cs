@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    #region [HARDCODE] Load values from other System
-    public int HEALTH = 5;
-    public float SPEED = 150.0f;
-    public float TIME_BETWEEN_SWAMS = 1.5f;
-    public float SPEED_FOLLOWING = 50.0f;
-    public float TIME_BETWEEN_SWAMS_FOLLOWING = 0.1f;
-    public float SPEED_ESCAPE = 100.0f;
-    public float TIME_BETWEEN_SWAMS_ESCAPE = 0.1f;
-    #endregion
 
     #region [REVIEW] Move to other Scripts
     private PlayerController player;
@@ -27,7 +18,7 @@ public class EnemyController : MonoBehaviour
 
     #region Entities Related
     public Sprite sprite; //[VALUE DEFINED FROM EDITOR]
-    private Enemy enemy;
+    public Enemy enemyData; //[VALUE DEFINED FROM EDITOR]
     private Rigidbody2D rb;
     private BoxCollider2D bc;
     private SpriteRenderer sr;
@@ -35,8 +26,10 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region AI Properties
-    public Vector2 currentDirection = Vector2.right;
+    private Vector2 currentDirection = Vector2.right;
+    private float speed;
     private float currentSpeed = 0;
+    private float timeBetweenSwams;
     private float timeSinceLastSwam = 0;
     private float testTimeBetweenBehaviours = 0;
     [SerializeField] private EnemyBehaviour currentBehaviour;
@@ -47,21 +40,21 @@ public class EnemyController : MonoBehaviour
     {
         if(newBehaviour == EnemyBehaviour.Idle)
         {
-            sr.color = new Color32(255,255,255,255);
-            enemy.Speed = SPEED;
-            enemy.TimeBetweenSwams = TIME_BETWEEN_SWAMS;
+            sr.color = enemyData.IdleColor;
+            speed = enemyData.IdleSpeed;
+            timeBetweenSwams = enemyData.IdleTimeBetweenSwams;
         }
         else if(newBehaviour == EnemyBehaviour.FollowPlayer)
         {
-            sr.color = new Color32(255,100,0,255);
-            enemy.Speed = SPEED_FOLLOWING;
-            enemy.TimeBetweenSwams = TIME_BETWEEN_SWAMS_FOLLOWING;
+            sr.color = enemyData.FollowPlayerColor;
+            speed = enemyData.FollowPlayerSpeed;
+            timeBetweenSwams = enemyData.FollowPlayerTimeBetweenSwams;
         }
         else if(newBehaviour == EnemyBehaviour.Escape)
         {
-            sr.color = new Color32(0,0,255,255);
-            enemy.Speed = SPEED_ESCAPE;
-            enemy.TimeBetweenSwams = TIME_BETWEEN_SWAMS_ESCAPE;
+            sr.color = enemyData.EscapeColor;
+            speed = enemyData.EscapeSpeed;
+            timeBetweenSwams = enemyData.EscapeTimeBetweenSwams;
         }
         currentBehaviour = newBehaviour;
     }
@@ -70,8 +63,6 @@ public class EnemyController : MonoBehaviour
     #region Unity Engine Loop
     void Start()
     {
-        enemy = new Enemy(SPEED, HEALTH, TIME_BETWEEN_SWAMS);
-
         sr = gameObject.AddComponent<SpriteRenderer>();
         sr.sprite = sprite; //[REVIEW] How to load sprites?
 
@@ -81,7 +72,12 @@ public class EnemyController : MonoBehaviour
         bc = gameObject.AddComponent<BoxCollider2D>();
 
         hc = gameObject.AddComponent<HealthComponent>();
-        hc.Setup(enemy.MaxHealth);
+        hc.Setup(enemyData.MaxHealth);
+
+        SetBehaviour(EnemyBehaviour.Idle);
+
+        Debug.Log("EnemyController: " + gameObject.GetInstanceID());
+        Debug.Log("EnemyData: " + enemyData.GetInstanceID());
     }
     void Update()
     {
@@ -99,10 +95,10 @@ public class EnemyController : MonoBehaviour
         }
 
         //Swim again
-        if(timeSinceLastSwam > enemy.TimeBetweenSwams)
+        if(timeSinceLastSwam > timeBetweenSwams)
         {
             timeSinceLastSwam = 0;
-            currentSpeed = enemy.Speed;
+            currentSpeed = speed;
             
             //Movement Default or Idle
             if(currentBehaviour == EnemyBehaviour.Idle) 
@@ -114,7 +110,7 @@ public class EnemyController : MonoBehaviour
             else if(currentBehaviour == EnemyBehaviour.Escape) 
                 currentDirection = -(Player.transform.position - transform.position).normalized;
         }
-        rb.velocity = PhysicsHelper.calculateVelocity(ref currentSpeed, enemy.Speed, currentDirection, timeSinceLastSwam);
+        rb.velocity = PhysicsHelper.calculateVelocity(ref currentSpeed, speed, currentDirection, timeSinceLastSwam);
     }
     #endregion
 }
