@@ -9,6 +9,7 @@ public class DropElement : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
     private RectTransform rectTransform;
     private Image element;
     private bool hasElement;
+    private Vector2 position;
 
     private void Start(){
         element = GetComponent<Image>();
@@ -31,6 +32,7 @@ public class DropElement : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
 
     public void OnDrop(PointerEventData eventData){
         if(eventData.pointerDrag != null){
+            Debug.Log(position);
             hasElement = true;
             DragElement draggedElement = eventData.pointerDrag.GetComponent<DragElement>();
             draggedElement.SetCellReference(this);
@@ -40,5 +42,17 @@ public class DropElement : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
 
     public void ClearCell(){
         hasElement = false;
+    }
+
+    public void SetCellCoordinates(Vector2 position){
+       this.position = position;
+    }
+
+    public bool checkCell(Vector2 cell){
+        if(!hasElement){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
