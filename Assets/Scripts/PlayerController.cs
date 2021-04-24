@@ -31,6 +31,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float timeForWaterPull = 3f;
     [SerializeField] int startingHealth = 6;
 
+    //Tools
+    [Header("TOOLS")]
+    [SerializeField] GameObject equippedTool;
+
     struct status{
         public bool canMove;
 
@@ -64,6 +68,9 @@ public class PlayerController : MonoBehaviour
     {
         InitializeParams();
         InitializeComponents();
+
+        ToolHelper.InstantiateTool(tools.blowtorch, this.transform);
+        // ToolHelper.InstantiateTool(tools.harpoon, this.transform);
     }
 
     void Update()
