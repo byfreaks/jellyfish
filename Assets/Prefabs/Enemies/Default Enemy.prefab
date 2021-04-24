@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8690683941246972709
+--- !u!1 &797709905290411688
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8690683941246972731}
-  - component: {fileID: 8690683941246972708}
+  - component: {fileID: 797709905290411686}
+  - component: {fileID: 797709905290411689}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Default Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8690683941246972731
+--- !u!4 &797709905290411686
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8690683941246972709}
+  m_GameObject: {fileID: 797709905290411688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.87, y: -0.03, z: -1.336}
+  m_LocalPosition: {x: -91, y: 43, z: -1.336}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8690683941246972708
+--- !u!114 &797709905290411689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8690683941246972709}
+  m_GameObject: {fileID: 797709905290411688}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6911be4d100ab3948a97ecb63c10d655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HEALTH: 5
-  SPEED: 100
-  TIME_BETWEEN_SWAMS: 2.5
-  SPEED_FOLLOWING: 50
-  TIME_BETWEEN_SWAMS_FOLLOWING: 0.1
-  SPEED_ESCAPE: 100
-  TIME_BETWEEN_SWAMS_ESCAPE: 0.1
   sprite: {fileID: 21300000, guid: 8670a8784d434734bb6288c3ef25d22c, type: 3}
+  enemyData: {fileID: 11400000, guid: a8c576b1a95d70c479ac4b476e8ed5a1, type: 2}
   currentBehaviour: 0
