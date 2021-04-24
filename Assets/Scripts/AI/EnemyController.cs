@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using Infrastructure;
 
 namespace AI
 {
     public class EnemyController : MonoBehaviour
     {
         #region [HARDCODE]
-        const float SPEED = 5.0f;
-        const float HEALTH = 100.0f;
+        public float SPEED = 100.0f;
+        public float HEALTH = 100.0f;
+        public float TIME_BETWEEN_SWAMS = 2.5f;
         #endregion
 
-        #region Properties
+        #region Entities Related
         public Sprite sprite; //[VALUE DEFINED FROM EDITOR]
         private Enemy enemy;
         private Rigidbody2D rb;
@@ -20,10 +22,16 @@ namespace AI
         private SpriteRenderer sr;
         #endregion
 
+        #region AI Properties
+        private Vector2 currentDirection = Vector2.right;
+        private float currentSpeed = 0;
+        private float timeSinceLastSwam = 0;
+        #endregion
+
         #region Unity Engine Loop
         void Start()
         {
-            enemy = new Enemy(SPEED, HEALTH);
+            enemy = new Enemy(SPEED, HEALTH, TIME_BETWEEN_SWAMS);
             sr = gameObject.AddComponent<SpriteRenderer>();
             sr.sprite = sprite; //[REVIEW] How to load sprites?
             rb = gameObject.AddComponent<Rigidbody2D>();
@@ -32,6 +40,23 @@ namespace AI
         }
         void Update()
         {
+            
+            //Movement Default or Idle
+            timeSinceLastSwam += Time.deltaTime;
+            if(timeSinceLastSwam > enemy.TimeBetweenSwams)
+            {
+                timeSinceLastSwam = 0;
+                currentSpeed = enemy.Speed;
+                currentDirection = new Vector2(-(currentDirection.x), Random.Range(-1f,1f));
+                Debug.Log(rb.velocity);
+            }
+            rb.velocity = PhysicsHelper.calculateVelocity(ref currentSpeed, enemy.Speed, currentDirection, timeSinceLastSwam);
+            
+            //Follow Player
+
+            //Attack
+
+            //Run away
         }
         #endregion
     }

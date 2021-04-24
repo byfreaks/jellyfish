@@ -5,16 +5,15 @@ namespace Models
 {
     public class Enemy
     {
-        private float speed;
-        private float maxHealth;
+        public float Speed { get; }
+        public float MaxHealth { get; }
+        public float TimeBetweenSwams { get; }
 
-        public float Speed { get { return speed; } }
-        public float MaxHealth { get { return maxHealth; } }
-
-        public Enemy(float speed, float maxHealth)
+        public Enemy(float speed, float maxHealth, float timeBetweenSwams)
         {
-            this.speed = speed;
-            this.maxHealth = maxHealth;
+            Speed = speed;
+            MaxHealth = maxHealth;
+            TimeBetweenSwams = timeBetweenSwams;
         }
     }
 }
