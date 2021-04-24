@@ -29,14 +29,9 @@ namespace AI
             rb = gameObject.AddComponent<Rigidbody2D>();
             rb.bodyType = RigidbodyType2D.Kinematic;
             bc = gameObject.AddComponent<BoxCollider2D>();
-
-
-            Debug.Log("SPEED: " + enemy.Speed);
-            Debug.Log("HEALTH: " + enemy.MaxHealth);
         }
         void Update()
         {
-            Debug.Log("Update");
         }
         #endregion
     }
