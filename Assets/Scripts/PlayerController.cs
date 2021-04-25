@@ -43,6 +43,10 @@ public class PlayerController : MonoBehaviour
     //Tools
     [Header("TOOLS")]
     [SerializeField] GameObject equippedTool;
+
+    //Inventory
+    public InventoryManager inventoryManager;
+    private bool openInventory = false;
     
     int selectedItem;
     [SerializeField] GameObject torch, harpoonGun;
@@ -93,6 +97,8 @@ public class PlayerController : MonoBehaviour
 
         harpoonGun = ToolHelper.InstantiateTool(tools.harpoon, this.transform);
         harpoonGun.SetActive(false);
+
+        inventoryManager.inventoryPanel.gameObject.SetActive(openInventory);
     }
 
     void Update()
@@ -126,6 +132,19 @@ public class PlayerController : MonoBehaviour
 
         if(currentOxygen <= 0)
             hc.Kill();
+
+        //Open Inventory
+        if (Input.GetKeyDown(KeyCode.E)){
+            openInventory = !openInventory;
+            if(Time.timeScale == 1.0f){
+                Time.timeScale = 0;
+                inventoryManager.SetAvailableItems(GameObject.Find("ProximityRadius").GetComponent<ProximityFinder>().nearPickables);
+                inventoryManager.inventoryPanel.gameObject.SetActive(openInventory);
+            }else{
+                Time.timeScale = 1.0F;
+                inventoryManager.inventoryPanel.gameObject.SetActive(openInventory);
+            }   
+        }   
     }
 
     void OrganizeInventory(){
