@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7614132523565004864}
   - component: {fileID: 7614132523565004865}
   - component: {fileID: 1858285682397291260}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Harpoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ed91b0111b6454e8cb829d86bc1ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipWeapon: 1
 --- !u!114 &7614132523565004864
 MonoBehaviour:
   m_ObjectHideFlags: 0

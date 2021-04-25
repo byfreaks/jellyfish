@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float timeForWaterPull = 3f;
     [SerializeField] int startingHealth = 6;
     [SerializeField] Material material;
+    [SerializeField] float timeToFreeRoam = 1.12f;
+    [SerializeField] float freeRoamSpeed = 20f;
 
     //Tools
     [Header("TOOLS")]
@@ -184,6 +186,12 @@ public class PlayerController : MonoBehaviour
             an.Play("player_swim_down");
 
         sr.flipX = dir.x >= 0;
+
+        var defAnSpeed = 1f;
+        var slowAnSpeed = 0.45f;
+        var anSpeed = timeSinceLastSwam > 2 ? slowAnSpeed:defAnSpeed;
+
+        an.speed = anSpeed;
     }
 
     #region functions
@@ -228,8 +236,9 @@ public class PlayerController : MonoBehaviour
 
             movement = direction * currentSpeed;
 
-        if(timeSinceLastSwam > timeForWaterPull){
-            var horPull = waterPullHorizontalRange;
+        if(timeSinceLastSwam > timeForWaterPull && inputDirection == Vector2.zero){
+            // var horPull = waterPullHorizontalRange;
+            var horPull = 0;
             var verPull = -(waterFriction / 2f);
             var waterPull = new Vector2(Random.Range(-horPull, +horPull), verPull);
 
@@ -238,6 +247,9 @@ public class PlayerController : MonoBehaviour
 
         // rb.velocity = movement;
         controller.Move(movement * Time.deltaTime);
+
+        if(timeSinceLastSwam > timeToFreeRoam)
+            controller.Move( (inputDirection * freeRoamSpeed) * Time.deltaTime );
     }
     #endregion
 }
