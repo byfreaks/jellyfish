@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] public GameObject inventoryPanel;
     [SerializeField] private GameObject cellPrefab;
     [SerializeField] [Range(1,5)] private int columns;
     [SerializeField] [Range(1,4)] private int rows;

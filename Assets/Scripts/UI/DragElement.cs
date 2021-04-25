@@ -43,7 +43,7 @@ public class DragElement : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
             foreach (var cell in invManager.cells)
             {   
                 if(!cell.GetComponent<DropElement>().checkCell(anchoredPos) && cell.GetComponent<DropElement>().checkPositionCell(anchoredPos)){
-                    Vector2 safePlace = new Vector2(invManager.safeBound, Random.Range(canvas.GetComponent<RectTransform>().rect.yMin, canvas.GetComponent<RectTransform>().rect.yMax));
+                    Vector2 safePlace = new Vector2(invManager.safeBound, Random.Range(canvas.GetComponent<RectTransform>().rect.yMin + 100, canvas.GetComponent<RectTransform>().rect.yMax - 100));
                     eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = safePlace;
                     break;
                 }

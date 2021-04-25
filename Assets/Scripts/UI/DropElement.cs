@@ -54,9 +54,11 @@ public class DropElement : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
     }
 
     public bool checkPositionCell(Vector2 cell){
+        Debug.Log(cell);
+        Debug.Log(position);
         if(
-            (cell.x < position.x && cell.x >= position.x - element.GetComponent<RectTransform>().sizeDelta.x) ||
-            (cell.y < position.y && cell.y >= position.y - element.GetComponent<RectTransform>().sizeDelta.y)
+            (cell.x <= position.x && cell.x >= position.x - element.GetComponent<RectTransform>().sizeDelta.x) &&
+            (cell.y <= position.y && cell.y >= position.y - element.GetComponent<RectTransform>().sizeDelta.y)
         ){
             return true;
         }else{
