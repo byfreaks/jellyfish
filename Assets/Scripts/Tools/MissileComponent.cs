@@ -30,10 +30,9 @@ public class MissileComponent : MonoBehaviour
         sr.sprite = sprite;
 
         rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Kinematic;
+        // rb.bodyType = RigidbodyType2D.Kinematic;
 
         bc = gameObject.AddComponent<BoxCollider2D>();
-        bc.isTrigger = true;
 
         Launch();
 
@@ -43,6 +42,7 @@ public class MissileComponent : MonoBehaviour
     {
         launched = true;
         rb.velocity = direction * speed;
+        PointHelper.PointAtTarget( this.transform, PointHelper.MouseWorldPos(), true);
     }
 
     private void Update() {
