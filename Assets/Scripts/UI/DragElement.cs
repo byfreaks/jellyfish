@@ -20,17 +20,16 @@ public class DragElement : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
     }
 
     public void OnDrag(PointerEventData eventData){
-
-        rectTransform.anchoredPosition += eventData.delta/canvas.scaleFactor;
-    }
-
-    public void OnBeginDrag(PointerEventData eventData){
         foreach (var cell in cells)
         {
             cell.ClearCell();
         }
         dropped = false;
         cells.Clear();
+        rectTransform.anchoredPosition += eventData.delta/canvas.scaleFactor;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData){
         canvasGroup.alpha = .4f;
         canvasGroup.blocksRaycasts = false;
     }
@@ -42,11 +41,10 @@ public class DragElement : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
 
         if(!dropped){
             foreach (var cell in invManager.cells)
-            {
-                if(!cell.GetComponent<DropElement>().checkCell(anchoredPos)){
-                    Vector2 prevPos;
-                    RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), eventData.pressPosition, null, out prevPos);
-                    eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = prevPos;
+            {   
+                if(!cell.GetComponent<DropElement>().checkCell(anchoredPos) && cell.GetComponent<DropElement>().checkPositionCell(anchoredPos)){
+                    Vector2 safePlace = new Vector2(invManager.safeBound, Random.Range(canvas.GetComponent<RectTransform>().rect.yMin, canvas.GetComponent<RectTransform>().rect.yMax));
+                    eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = safePlace;
                     break;
                 }
             }

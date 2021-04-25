@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class DropElement : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    private RectTransform rectTransform;
     private Image element;
     private bool hasElement;
     private Vector2 position;
@@ -18,21 +17,18 @@ public class DropElement : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        element.color = Color.green;
+        element.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         if(!hasElement){
             element.color = Color.white;
-        }else{
-            element.color = Color.red;
-        }   
+        }
     }
 
     public void OnDrop(PointerEventData eventData){
         if(eventData.pointerDrag != null){
-            Debug.Log(position);
             hasElement = true;
             DragElement draggedElement = eventData.pointerDrag.GetComponent<DragElement>();
             draggedElement.SetCellReference(this);
@@ -50,6 +46,18 @@ public class DropElement : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
 
     public bool checkCell(Vector2 cell){
         if(!hasElement){
+            element.color = Color.white;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public bool checkPositionCell(Vector2 cell){
+        if(
+            (cell.x < position.x && cell.x >= position.x - element.GetComponent<RectTransform>().sizeDelta.x) ||
+            (cell.y < position.y && cell.y >= position.y - element.GetComponent<RectTransform>().sizeDelta.y)
+        ){
             return true;
         }else{
             return false;
