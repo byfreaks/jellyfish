@@ -19,8 +19,8 @@ public class HealthComponent : MonoBehaviour
 
     private void Awake() {
         if(TryGetComponent<SpriteRenderer>(out var sr)){
-            Debug.Log(gameObject.name);
-            sr.material = new Material(material);
+            if(sr.material == null)
+                sr.material = new Material(material);
         }    
     }
 
