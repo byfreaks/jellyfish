@@ -19,7 +19,7 @@ MonoBehaviour:
   hasFollowPlayerBehaviour: 1
   hasEscapeBehaviour: 1
   sprite: {fileID: -1082562104702633932, guid: e64d20841481cd64a971f7767d70ee0a, type: 3}
-  animatorController: {fileID: 9100000, guid: e60c93587a890684f8e2264b3e31be60, type: 2}
+  animatorController: {fileID: 9100000, guid: d235d061401b22d4caadb9ad2aceae11, type: 2}
   material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
   Speed_Idle: 20
   Speed_FollowPlayer: 40
@@ -31,7 +31,7 @@ MonoBehaviour:
   Speed_Attack: 0
   TimeBetweenAction_Attack: 0
   NeighborRadius: 50
-  AvoidanceRadius: 30
+  AvoidanceRadius: 15
   MovementWeight_Avoidance: 2
   MovementWeight_Aligment: 1
   MovementWeight_Cohesion: 0.5
