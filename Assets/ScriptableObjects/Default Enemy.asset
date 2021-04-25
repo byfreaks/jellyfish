@@ -15,16 +15,21 @@ MonoBehaviour:
   MaxHealth: 5
   IdleColor:
     serializedVersion: 2
-    rgba: 4294967295
-  IdleSpeed: 150
+    rgba: 4287730170
+  IdleSpeed: 50
   IdleTimeBetweenSwams: 1.5
   FollowPlayerColor:
     serializedVersion: 2
-    rgba: 4278215935
-  FollowPlayerSpeed: 50
+    rgba: 4279512058
+  FollowPlayerSpeed: 75
   FollowPlayerTimeBetweenSwams: 0.1
   EscapeColor:
     serializedVersion: 2
-    rgba: 4294901760
+    rgba: 4278194019
   EscapeSpeed: 100
   EscapeTimeBetweenSwams: 0.1
+  NeighborRadius: 60
+  AvoidanceRadius: 40
+  AvoidanceWeight: 2
+  AligmentWeight: 1
+  CohesionWeight: 0.1
