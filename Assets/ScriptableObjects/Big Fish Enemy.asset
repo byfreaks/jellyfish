@@ -10,26 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15d8c417846b08f44aa607b0e4c173a7, type: 3}
-  m_Name: Slow Enemy
+  m_Name: Big Fish Enemy
   m_EditorClassIdentifier: 
   MaxHealth: 5
-  IdleColor:
-    serializedVersion: 2
-    rgba: 4284459000
-  IdleSpeed: 30
+  sprite: {fileID: 8596640243658272642, guid: c4aef19f8232450408e48368d0a23254, type: 3}
+  animatorController: {fileID: 9100000, guid: 51448a730e38af647a57c2ead95ed180, type: 2}
+  IdleSpeed: 15
   IdleTimeBetweenSwams: 1.5
-  FollowPlayerColor:
-    serializedVersion: 2
-    rgba: 4278612209
-  FollowPlayerSpeed: 50
+  FollowPlayerSpeed: 30
   FollowPlayerTimeBetweenSwams: 0.1
-  EscapeColor:
-    serializedVersion: 2
-    rgba: 4278598008
-  EscapeSpeed: 70
+  EscapeSpeed: 40
   EscapeTimeBetweenSwams: 0.1
   NeighborRadius: 60
   AvoidanceRadius: 40
   AvoidanceWeight: 3
   AligmentWeight: 1
-  CohesionWeight: 0.5
+  CohesionWeight: 0.1

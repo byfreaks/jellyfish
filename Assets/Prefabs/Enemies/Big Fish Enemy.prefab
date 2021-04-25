@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6911be4d100ab3948a97ecb63c10d655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 8670a8784d434734bb6288c3ef25d22c, type: 3}
   enemyData: {fileID: 11400000, guid: be302642f93689d41936045ddb26a860, type: 2}
+  rb: {fileID: 0}
+  bc: {fileID: 0}
   currentBehaviour: 0
