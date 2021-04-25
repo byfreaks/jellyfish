@@ -17,12 +17,12 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region Entities Related
-    public Sprite sprite; //[VALUE DEFINED FROM EDITOR]
     public Enemy enemyData; //[VALUE DEFINED FROM EDITOR]
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public BoxCollider2D bc;
     private SpriteRenderer sr;
     private HealthComponent hc;
+    private Animator an;
     #endregion
 
     #region AI Properties
@@ -40,19 +40,16 @@ public class EnemyController : MonoBehaviour
     {
         if(newBehaviour == EnemyBehaviour.Idle)
         {
-            sr.color = enemyData.IdleColor;
             speed = enemyData.IdleSpeed;
             timeBetweenSwams = enemyData.IdleTimeBetweenSwams;
         }
         else if(newBehaviour == EnemyBehaviour.FollowPlayer)
         {
-            sr.color = enemyData.FollowPlayerColor;
             speed = enemyData.FollowPlayerSpeed;
             timeBetweenSwams = enemyData.FollowPlayerTimeBetweenSwams;
         }
         else if(newBehaviour == EnemyBehaviour.Escape)
         {
-            sr.color = enemyData.EscapeColor;
             speed = enemyData.EscapeSpeed;
             timeBetweenSwams = enemyData.EscapeTimeBetweenSwams;
         }
@@ -64,7 +61,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         sr = gameObject.AddComponent<SpriteRenderer>();
-        sr.sprite = sprite; //[REVIEW] How to load sprites?
+        sr.sprite = enemyData.sprite;
 
         rb = gameObject.AddComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
@@ -73,6 +70,9 @@ public class EnemyController : MonoBehaviour
 
         hc = gameObject.AddComponent<HealthComponent>();
         hc.Setup(enemyData.MaxHealth);
+
+        an = gameObject.AddComponent<Animator>();
+        an.runtimeAnimatorController = enemyData.animatorController;
 
         SetBehaviour(EnemyBehaviour.Idle);
     }

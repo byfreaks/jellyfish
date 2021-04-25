@@ -10,23 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15d8c417846b08f44aa607b0e4c173a7, type: 3}
-  m_Name: Default Enemy
+  m_Name: Fish Enemy
   m_EditorClassIdentifier: 
   MaxHealth: 5
-  IdleColor:
-    serializedVersion: 2
-    rgba: 4287730170
-  IdleSpeed: 50
+  sprite: {fileID: -1915776564401465818, guid: 017814aded42f1544a36c488278771d6, type: 3}
+  animatorController: {fileID: 9100000, guid: 623730665a9816f4c98ea67788a5a5e5, type: 2}
+  IdleSpeed: 25
   IdleTimeBetweenSwams: 1.5
-  FollowPlayerColor:
-    serializedVersion: 2
-    rgba: 4279512058
-  FollowPlayerSpeed: 75
+  FollowPlayerSpeed: 40
   FollowPlayerTimeBetweenSwams: 0.1
-  EscapeColor:
-    serializedVersion: 2
-    rgba: 4278194019
-  EscapeSpeed: 100
+  EscapeSpeed: 60
   EscapeTimeBetweenSwams: 0.1
   NeighborRadius: 60
   AvoidanceRadius: 40
