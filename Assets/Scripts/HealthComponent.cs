@@ -19,7 +19,7 @@ public class HealthComponent : MonoBehaviour
 
     private void Awake() {
         if(TryGetComponent<SpriteRenderer>(out var sr)){
-            Debug.Log(material);
+            Debug.Log(gameObject.name);
             sr.material = new Material(material);
         }    
     }
@@ -67,7 +67,7 @@ public class HealthComponent : MonoBehaviour
 
     public void Kill(){
         AlterHealth(-maxHealth);
-        StartFeedbackEffect(damageColor);
+        // StartFeedbackEffect(damageColor);
     }
 
     private void StartFeedbackEffect(Color? color = null){

@@ -9,7 +9,6 @@ public class ResourceData : ScriptableObject
     public GameObject droppable;
     public GameObject inventoryItem;
     public ResourceType resourceType;
-
 }
 
 public enum ResourceType{
