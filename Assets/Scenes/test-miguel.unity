@@ -384,6 +384,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3155219534757188866, guid: e3bdfbeed1362624a85c347cb6d81b9c, type: 3}
+      propertyPath: cursorTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: fd484b80dd5a56543b07c2642478f780, type: 3}
+    - target: {fileID: 3155219534757188866, guid: e3bdfbeed1362624a85c347cb6d81b9c, type: 3}
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 1526695468}
