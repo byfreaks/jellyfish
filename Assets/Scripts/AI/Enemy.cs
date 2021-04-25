@@ -5,34 +5,55 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Enemy", menuName = "ScriptableObjects/Enemy")]
 public class Enemy: ScriptableObject
 {
+    [Header("Attributes")]
     public int MaxHealth = 5;
+    public GameObject Hitbox;
+    public bool hasIdleBehaviour = true;
+    public bool hasAttackBehaviour = true;
+    public bool hasFollowPlayerBehaviour = true;
+    public bool hasEscapeBehaviour = true;
 
     [Header("Graphic Configs")]
     public Sprite sprite;
     public RuntimeAnimatorController animatorController;
     public Material material;
 
-    [Header("Enemy Behaviour Configs")]
-    public float IdleSpeed = 50.0f;
+    [Header("Behaviour Config - Idle")]
     
-    [Range(MIN_TIME_BETWEEN_SWAMS, MAX_TIME_BETWEEN_SWAMS)]
-    public float IdleTimeBetweenSwams = 1.5f;
-    public float FollowPlayerSpeed = 75.0f;
-    
-    [Range(MIN_TIME_BETWEEN_SWAMS, MAX_TIME_BETWEEN_SWAMS)]
-    public float FollowPlayerTimeBetweenSwams = 0.1f;
-    
-    [Range(MIN_BEHAVIOUR_WEIGHT, MAX_BEHAVIOUR_WEIGHT)]
-    public float FollowPlayerWeight = 1.0f;
-    public float EscapeSpeed = 100.0f;
-    
-    [Range(MIN_TIME_BETWEEN_SWAMS, MAX_TIME_BETWEEN_SWAMS)]
-    public float EscapeTimeBetweenSwams = 0.1f;
-    
-    [Range(MIN_BEHAVIOUR_WEIGHT, MAX_BEHAVIOUR_WEIGHT)]
-    public float EscapeWeight = 0.5f;
+    [Range(MIN_SPEED, MAX_SPEED)]
+    public float Speed_Idle;    
 
-    [Header("Flock Behaviour Configs")]
+    [Header("Behaviour Config - Follow Player")]
+
+    [Range(MIN_SPEED, MAX_SPEED)]
+    public float Speed_FollowPlayer;
+    
+    [Range(MIN_TIME_BETWEEN_BEHAVIOUR_ACTION, MAX_TIME_BETWEEN_BEHAVIOUR_ACTION)]
+    public float TimeBetweenAction_FollowPlayer;
+    
+    [Range(MIN_BEHAVIOUR_WEIGHT, MAX_BEHAVIOUR_WEIGHT)]
+    public float MovementWeight_FollowPlayer;
+    
+    [Header("Behaviour Config - Escape")]
+
+    [Range(MIN_SPEED, MAX_SPEED)]
+    public float Speed_Escape;
+    
+    [Range(MIN_TIME_BETWEEN_BEHAVIOUR_ACTION, MAX_TIME_BETWEEN_BEHAVIOUR_ACTION)]
+    public float TimeBetweenAction_Escape;
+    
+    [Range(MIN_BEHAVIOUR_WEIGHT, MAX_BEHAVIOUR_WEIGHT)]
+    public float MovementWeight_Escape;
+
+    [Header("Behaviour Config - Attack")]
+
+    [Range(MIN_SPEED, MAX_SPEED)]
+    public float Speed_Attack;
+    
+    [Range(MIN_TIME_BETWEEN_BEHAVIOUR_ACTION, MAX_TIME_BETWEEN_BEHAVIOUR_ACTION)]
+    public float TimeBetweenAction_Attack;
+
+    [Header("Flock Config")]
     
     [Range(MIN_BEHAVIOUR_RADIUS, MAX_BEHAVIOUR_RADIUS)]
     public float NeighborRadius = 50f;
@@ -41,17 +62,19 @@ public class Enemy: ScriptableObject
     public float AvoidanceRadius = 30f;
 
     [Range(MIN_BEHAVIOUR_WEIGHT, MAX_BEHAVIOUR_WEIGHT)]
-    public float AvoidanceWeight = 2f;
+    public float MovementWeight_Avoidance = 2f;
 
     [Range(MIN_BEHAVIOUR_WEIGHT, MAX_BEHAVIOUR_WEIGHT)]
-    public float AligmentWeight = 1;
+    public float MovementWeight_Aligment = 1;
 
     [Range(MIN_BEHAVIOUR_WEIGHT, MAX_BEHAVIOUR_WEIGHT)]
-    public float CohesionWeight = 0.5f;
+    public float MovementWeight_Cohesion = 0.5f;
 
     //EDITOR CONFIG
-    private const float MIN_TIME_BETWEEN_SWAMS = 0f;
-    private const float MAX_TIME_BETWEEN_SWAMS = 3f;
+    private const float MIN_SPEED = 10f;
+    private const float MAX_SPEED = 500f;    
+    private const float MIN_TIME_BETWEEN_BEHAVIOUR_ACTION = 0f;
+    private const float MAX_TIME_BETWEEN_BEHAVIOUR_ACTION = 3f;
     private const float MIN_BEHAVIOUR_WEIGHT = 0f;
     private const float MAX_BEHAVIOUR_WEIGHT = 5f;
     private const float MIN_BEHAVIOUR_RADIUS = 5f;

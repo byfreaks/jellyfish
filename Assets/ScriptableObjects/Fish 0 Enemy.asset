@@ -13,16 +13,21 @@ MonoBehaviour:
   m_Name: Fish Enemy
   m_EditorClassIdentifier: 
   MaxHealth: 5
+  Hitbox: {fileID: 0}
   sprite: {fileID: -1915776564401465818, guid: 017814aded42f1544a36c488278771d6, type: 3}
   animatorController: {fileID: 9100000, guid: 623730665a9816f4c98ea67788a5a5e5, type: 2}
-  IdleSpeed: 25
-  IdleTimeBetweenSwams: 1.5
-  FollowPlayerSpeed: 40
-  FollowPlayerTimeBetweenSwams: 0.1
-  EscapeSpeed: 60
-  EscapeTimeBetweenSwams: 0.1
-  NeighborRadius: 60
-  AvoidanceRadius: 40
-  AvoidanceWeight: 2
-  AligmentWeight: 1
-  CohesionWeight: 0.1
+  material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
+  Speed_Idle: 20
+  Speed_FollowPlayer: 50
+  TimeBetweenAction_FollowPlayer: 0.1
+  MovementWeight_FollowPlayer: 1
+  Speed_Escape: 70
+  TimeBetweenAction_Escape: 0.1
+  MovementWeight_Escape: 1
+  Speed_Attack: 20
+  TimeBetweenAction_Attack: 2.5
+  NeighborRadius: 16
+  AvoidanceRadius: 10
+  MovementWeight_Avoidance: 2
+  MovementWeight_Aligment: 1
+  MovementWeight_Cohesion: 0.5

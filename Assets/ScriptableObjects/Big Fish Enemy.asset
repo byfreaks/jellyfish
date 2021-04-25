@@ -13,16 +13,21 @@ MonoBehaviour:
   m_Name: Big Fish Enemy
   m_EditorClassIdentifier: 
   MaxHealth: 5
+  Hitbox: {fileID: 567444335534887055, guid: e3e799a0cff31a54c846cd65d682e4a1, type: 3}
   sprite: {fileID: 8596640243658272642, guid: c4aef19f8232450408e48368d0a23254, type: 3}
-  animatorController: {fileID: 9100000, guid: 51448a730e38af647a57c2ead95ed180, type: 2}
-  IdleSpeed: 15
-  IdleTimeBetweenSwams: 1.5
-  FollowPlayerSpeed: 30
-  FollowPlayerTimeBetweenSwams: 0.1
-  EscapeSpeed: 40
-  EscapeTimeBetweenSwams: 0.1
-  NeighborRadius: 60
-  AvoidanceRadius: 40
-  AvoidanceWeight: 3
-  AligmentWeight: 1
-  CohesionWeight: 0.1
+  animatorController: {fileID: 9100000, guid: a9ea2a62f42d21a4690ad6a8bdc9281e, type: 2}
+  material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
+  Speed_Idle: 10
+  Speed_FollowPlayer: 30
+  TimeBetweenAction_FollowPlayer: 0.1
+  MovementWeight_FollowPlayer: 1
+  Speed_Escape: 60
+  TimeBetweenAction_Escape: 0.1
+  MovementWeight_Escape: 4
+  Speed_Attack: 10
+  TimeBetweenAction_Attack: 0.3
+  NeighborRadius: 40
+  AvoidanceRadius: 20
+  MovementWeight_Avoidance: 1
+  MovementWeight_Aligment: 1
+  MovementWeight_Cohesion: 0.1

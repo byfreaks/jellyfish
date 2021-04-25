@@ -14,14 +14,14 @@ public static class AIHelper
             return Vector2.zero;
         
         //Because performance is better use sqrMagnitude than magnitude.
-        float squareAvoidanceRadius = enemy.enemyData.AvoidanceWeight;
+        float squareAvoidanceRadius = enemy.enemyData.AvoidanceRadius;
         squareAvoidanceRadius *= squareAvoidanceRadius;
 
         //Enemies nearby -> Calculate adjustment
         Vector2 flockAdjustment = Vector2.zero;
-        flockAdjustment += FlockAvoidanceBehaviour(enemy, enemies, squareAvoidanceRadius).normalized * enemy.enemyData.AvoidanceWeight;
-        flockAdjustment += FlockAlignmentBehaviour(enemy, enemies).normalized * enemy.enemyData.AligmentWeight;
-        flockAdjustment += FlockCohesionBehaviour(enemy, enemies).normalized * enemy.enemyData.CohesionWeight;
+        flockAdjustment += FlockAvoidanceBehaviour(enemy, enemies, squareAvoidanceRadius).normalized * enemy.enemyData.MovementWeight_Avoidance;
+        flockAdjustment += FlockAlignmentBehaviour(enemy, enemies).normalized * enemy.enemyData.MovementWeight_Aligment;
+        flockAdjustment += FlockCohesionBehaviour(enemy, enemies).normalized * enemy.enemyData.MovementWeight_Cohesion;
 
         return flockAdjustment;
     }
@@ -76,7 +76,7 @@ public static class AIHelper
             cohesionAdjustment += (Vector2) enemyNearby.transform.position;
         cohesionAdjustment /= enemies.Count;
         //Create offset for enemy position
-        cohesionAdjustment -= (Vector2) enemy.transform.position;        
+        cohesionAdjustment -= (Vector2) enemy.transform.position;
         return cohesionAdjustment;
     }
 

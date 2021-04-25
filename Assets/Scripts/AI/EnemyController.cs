@@ -22,64 +22,67 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public BoxCollider2D bc;
     private SpriteRenderer sr;
     private HealthComponent hc;
-    private Animator an;
+    public Animator an;
     #endregion
 
     #region AI Properties
-    private Vector2 currentDirection = Vector2.zero;
-    private float speed;
-    private float currentSpeed = 0;
-    private float timeBetweenSwams;
-    private float timeSinceLastSwam = 0;
+    public Vector2 CurrentDirection = Vector2.zero;
+    public float Speed;
+    public float CurrentSpeed;
+    public float TimeBetweenActions;
+    private float timeSinceLastAction;
+    private EnemyBehaviour currentBehaviour;
     private float testTimeBetweenBehaviours = 0;
-    [SerializeField] private EnemyBehaviour currentBehaviour;
     #endregion
 
     #region AI Methods
-    public void SetBehaviour(EnemyBehaviour newBehaviour)
+    public void ChangeBehaviour(EnemyBehaviours newBehaviour)
     {
-        if(newBehaviour == EnemyBehaviour.Idle)
+        while (true)
         {
-            speed = enemyData.IdleSpeed;
-            timeBetweenSwams = enemyData.IdleTimeBetweenSwams;
+            if(newBehaviour == EnemyBehaviours.Idle && enemyData.hasIdleBehaviour) 
+            {
+                currentBehaviour = new Idle();
+                break;
+            }
+            else if(newBehaviour == EnemyBehaviours.FollowPlayer && enemyData.hasFollowPlayerBehaviour) 
+            {
+                currentBehaviour = new FollowPlayer();
+                break;
+            }
+            else if(newBehaviour == EnemyBehaviours.Attack && enemyData.hasAttackBehaviour) 
+            {
+                currentBehaviour = new Attack();
+                break;
+            }
+            else if(newBehaviour == EnemyBehaviours.Escape && enemyData.hasEscapeBehaviour)
+            {
+                currentBehaviour = new Escape();
+                break;
+            } 
+            else
+            {
+                newBehaviour += 1;
+                if(newBehaviour > EnemyBehaviours.Escape) newBehaviour = 0;
+            }
         }
-        else if(newBehaviour == EnemyBehaviour.FollowPlayer)
-        {
-            speed = enemyData.FollowPlayerSpeed;
-            timeBetweenSwams = enemyData.FollowPlayerTimeBetweenSwams;
-        }
-        else if(newBehaviour == EnemyBehaviour.Escape)
-        {
-            speed = enemyData.EscapeSpeed;
-            timeBetweenSwams = enemyData.EscapeTimeBetweenSwams;
-        }
-        currentBehaviour = newBehaviour;
+        Debug.Log(currentBehaviour.type);
+        currentBehaviour.Init(this);
     }
-    public void CalculateNewDirection()
+    public void UpdateVelocity()
     {
-        //Follow Player
-        if(currentBehaviour == EnemyBehaviour.FollowPlayer)
-            currentDirection = (Player.transform.position - transform.position).normalized * enemyData.FollowPlayerWeight;
-        //Escape
-        else if(currentBehaviour == EnemyBehaviour.Escape) 
-            currentDirection = -(Player.transform.position - transform.position).normalized * enemyData.EscapeWeight;
-    
-        //Flock adjustments
-        currentDirection += AIHelper.FlockMainBehaviour(this).normalized;
-    }
-    public void MoveEnemy()
-    {
-        //Move
-        Vector2 newVelocity = PhysicsHelper.calculateVelocity(ref currentSpeed, speed, currentDirection, timeSinceLastSwam);
+        //Calculate Velocity
+        Vector2 newVelocity = PhysicsHelper.calculateVelocity(ref CurrentSpeed, Speed, CurrentDirection, timeSinceLastAction);
         //Speed limit
-        if(newVelocity.magnitude > speed)
-            newVelocity = newVelocity.normalized * speed;
+        if(newVelocity.magnitude > Speed)
+            newVelocity = newVelocity.normalized * Speed;
+        //Update Velocity
         rb.velocity = newVelocity;
     }
-    public void HandleAnimation()
+    public void UpdateSpriteDirection()
     {
         //Sprite point to right or left
-        sr.flipX = (currentDirection.x > 0);
+        sr.flipX = (CurrentDirection.x > 0);
     }
     #endregion
 
@@ -101,34 +104,32 @@ public class EnemyController : MonoBehaviour
         an = gameObject.AddComponent<Animator>();
         an.runtimeAnimatorController = enemyData.animatorController;
 
-        SetBehaviour(EnemyBehaviour.Idle);
+        ChangeBehaviour(EnemyBehaviours.FollowPlayer);
     }
     void Update()
     {
-        timeSinceLastSwam += Time.deltaTime;
+        timeSinceLastAction += Time.deltaTime;
         
         //[DEBUG] Change Behaviours each 10 seconds for testing
         testTimeBetweenBehaviours += Time.deltaTime;
         if(testTimeBetweenBehaviours > 5f)   
         {
-            if(currentBehaviour == EnemyBehaviour.Idle) SetBehaviour(EnemyBehaviour.FollowPlayer);
-            else if(currentBehaviour == EnemyBehaviour.FollowPlayer) SetBehaviour(EnemyBehaviour.Escape);
-            else if(currentBehaviour == EnemyBehaviour.Escape) SetBehaviour(EnemyBehaviour.Idle);
+            ChangeBehaviour(currentBehaviour.type+1);
             testTimeBetweenBehaviours = 0;
-            timeSinceLastSwam = 0;
+            timeSinceLastAction = 0;
         }
 
-        //Each x seconds is calculated a new direction
-        if(timeSinceLastSwam > timeBetweenSwams)
+        /* BEHAVIOUR ACTIONS */
+        if(TimeBetweenActions != -1 && timeSinceLastAction > TimeBetweenActions)
         {
-            timeSinceLastSwam = 0;
-            currentSpeed = speed;
-            CalculateNewDirection();
+            timeSinceLastAction = 0;
+            currentBehaviour.BehaviorAction(this);
+            //Flock adjustments
+            CurrentDirection += AIHelper.FlockMainBehaviour(this).normalized;
         }
 
-        //Update velocity
-        MoveEnemy();
-        HandleAnimation();
+        UpdateVelocity();
+        UpdateSpriteDirection();
     }
     #endregion
 }
