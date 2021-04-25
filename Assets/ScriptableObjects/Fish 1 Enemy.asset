@@ -31,7 +31,7 @@ MonoBehaviour:
   Speed_Attack: 0
   TimeBetweenAction_Attack: 0
   NeighborRadius: 50
-  AvoidanceRadius: 30
+  AvoidanceRadius: 15
   MovementWeight_Avoidance: 2
   MovementWeight_Aligment: 1
-  MovementWeight_Cohesion: 0.5
+  MovementWeight_Cohesion: 0.1

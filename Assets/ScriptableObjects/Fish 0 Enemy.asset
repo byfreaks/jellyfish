@@ -30,8 +30,8 @@ MonoBehaviour:
   MovementWeight_Escape: 1
   Speed_Attack: 20
   TimeBetweenAction_Attack: 2.5
-  NeighborRadius: 16
-  AvoidanceRadius: 10
+  NeighborRadius: 20
+  AvoidanceRadius: 15
   MovementWeight_Avoidance: 2
   MovementWeight_Aligment: 1
   MovementWeight_Cohesion: 0.5
