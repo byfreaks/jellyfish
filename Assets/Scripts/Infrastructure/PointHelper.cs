@@ -1,0 +1,28 @@
+using UnityEngine;
+
+public static class PointHelper
+{
+    static public void PointAtTarget(Transform center, Vector3 target, bool invertScaleY = false){
+        var targetPos = target;
+        targetPos.x = targetPos.x - center.position.x;
+        targetPos.y = targetPos.y - center.position.y;
+        var angle = Mathf.Atan2(targetPos.y, targetPos.x) * Mathf.Rad2Deg;
+        center.rotation = Quaternion.Euler(new Vector3(0,0, angle));
+        if(invertScaleY){
+            if(target.x > center.position.x ){
+                center.localScale = new Vector3(1, 1,1);
+            } else {
+                center.localScale = new Vector3(1,-1,1);
+            }
+        }
+    }
+
+    static public Vector2 MouseWorldPos(){
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    public static Vector2 DirectionToMouse(Transform origin)
+    {
+        return (MouseWorldPos() - (Vector2)origin.position ).normalized;
+    }
+}
