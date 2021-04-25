@@ -8,12 +8,17 @@ public class GameController : MonoBehaviour
     public ToolHelperData toolHelperData;
     public InventoryManager inventoryManager;
     private bool openInventory = false;
+    public List<GameObject> ToDelete;
 
     void Start()
     {
         //Initialize tools
         ToolHelper.Init(toolHelperData);
         inventoryManager.inventoryPanel.gameObject.SetActive(openInventory);
+        
+        foreach(GameObject go in ToDelete){
+            GameObject.Destroy(go, 0.01f);
+        }
     }
 
     void Update()

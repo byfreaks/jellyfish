@@ -21,7 +21,7 @@ public class HealthComponent : MonoBehaviour
         if(TryGetComponent<SpriteRenderer>(out var sr)){
             if(sr.material == null)
                 sr.material = new Material(material);
-        }    
+        }
     }
 
     public void Setup(int max = 5, int? current = null){
