@@ -19,14 +19,19 @@ public class Enemy: ScriptableObject
     public float EscapeTimeBetweenSwams = 0.1f;
 
     [Header("Flock Behaviour Configs")]
+    
     [Range(40f, 80f)]
     public float NeighborRadius = 50f;
+
     [Range(20f, 40f)]
     public float AvoidanceRadius = 30f;
+
     [Range(0f, 3f)]
     public float AvoidanceWeight = 2f;
+
     [Range(0f, 3f)]
     public float AligmentWeight = 1;
+
     [Range(0f, 3f)]
     public float CohesionWeight = 0.5f;
 }
