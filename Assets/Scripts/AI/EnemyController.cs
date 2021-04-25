@@ -19,14 +19,14 @@ public class EnemyController : MonoBehaviour
     #region Entities Related
     public Sprite sprite; //[VALUE DEFINED FROM EDITOR]
     public Enemy enemyData; //[VALUE DEFINED FROM EDITOR]
-    private Rigidbody2D rb;
-    private BoxCollider2D bc;
+    [HideInInspector] public Rigidbody2D rb;
+    [HideInInspector] public BoxCollider2D bc;
     private SpriteRenderer sr;
     private HealthComponent hc;
     #endregion
 
     #region AI Properties
-    private Vector2 currentDirection = Vector2.right;
+    private Vector2 currentDirection = Vector2.zero;
     private float speed;
     private float currentSpeed = 0;
     private float timeBetweenSwams;
@@ -75,9 +75,6 @@ public class EnemyController : MonoBehaviour
         hc.Setup(enemyData.MaxHealth);
 
         SetBehaviour(EnemyBehaviour.Idle);
-
-        Debug.Log("EnemyController: " + gameObject.GetInstanceID());
-        Debug.Log("EnemyData: " + enemyData.GetInstanceID());
     }
     void Update()
     {
@@ -85,11 +82,11 @@ public class EnemyController : MonoBehaviour
         
         //[DEBUG] Change Behaviours each 10 seconds for testing
         testTimeBetweenBehaviours += Time.deltaTime;
-        if(testTimeBetweenBehaviours > 10f)   
+        if(testTimeBetweenBehaviours > 5f)   
         {
             if(currentBehaviour == EnemyBehaviour.Idle) SetBehaviour(EnemyBehaviour.FollowPlayer);
             else if(currentBehaviour == EnemyBehaviour.FollowPlayer) SetBehaviour(EnemyBehaviour.Escape);
-            else if(currentBehaviour == EnemyBehaviour.Escape) SetBehaviour(EnemyBehaviour.Escape);
+            else if(currentBehaviour == EnemyBehaviour.Escape) SetBehaviour(EnemyBehaviour.Idle);
             testTimeBetweenBehaviours = 0;
             timeSinceLastSwam = 0;
         }
@@ -100,17 +97,23 @@ public class EnemyController : MonoBehaviour
             timeSinceLastSwam = 0;
             currentSpeed = speed;
             
-            //Movement Default or Idle
-            if(currentBehaviour == EnemyBehaviour.Idle) 
-                currentDirection = new Vector2(-currentDirection.x, Random.Range(-0.2f,0.2f)).normalized;
             //Follow Player
-            else if(currentBehaviour == EnemyBehaviour.FollowPlayer)
+            if(currentBehaviour == EnemyBehaviour.FollowPlayer)
                 currentDirection = (Player.transform.position - transform.position).normalized;
             //Escape
             else if(currentBehaviour == EnemyBehaviour.Escape) 
                 currentDirection = -(Player.transform.position - transform.position).normalized;
+        
+            //Flock adjustments
+            currentDirection += AIHelper.FlockMainBehaviour(this).normalized;
         }
-        rb.velocity = PhysicsHelper.calculateVelocity(ref currentSpeed, speed, currentDirection, timeSinceLastSwam);
+        
+        //Move
+        Vector2 newVelocity = PhysicsHelper.calculateVelocity(ref currentSpeed, speed, currentDirection, timeSinceLastSwam);
+        //Speed limit
+        if(newVelocity.magnitude > speed)
+            newVelocity = newVelocity.normalized * speed;
+        rb.velocity = newVelocity;
     }
     #endregion
 }
