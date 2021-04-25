@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15d8c417846b08f44aa607b0e4c173a7, type: 3}
-  m_Name: Fish Enemy
+  m_Name: Fish 0 Enemy
   m_EditorClassIdentifier: 
   MaxHealth: 5
   Hitbox: {fileID: 0}
+  hasIdleBehaviour: 1
+  hasAttackBehaviour: 0
+  hasFollowPlayerBehaviour: 1
+  hasEscapeBehaviour: 1
   sprite: {fileID: -1915776564401465818, guid: 017814aded42f1544a36c488278771d6, type: 3}
-  animatorController: {fileID: 9100000, guid: 623730665a9816f4c98ea67788a5a5e5, type: 2}
+  animatorController: {fileID: 9100000, guid: 0cab2d474d4fb964c8b9641d82ba0269, type: 2}
   material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
   Speed_Idle: 20
   Speed_FollowPlayer: 50

@@ -14,16 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 5
   Hitbox: {fileID: 0}
-  sprite: {fileID: 0}
-  animatorController: {fileID: 0}
-  material: {fileID: 0}
-  Speed_Idle: 0
-  Speed_FollowPlayer: 0
-  TimeBetweenAction_FollowPlayer: 0
-  MovementWeight_FollowPlayer: 0
-  Speed_Escape: 0
-  TimeBetweenAction_Escape: 0
-  MovementWeight_Escape: 0
+  hasIdleBehaviour: 1
+  hasAttackBehaviour: 0
+  hasFollowPlayerBehaviour: 1
+  hasEscapeBehaviour: 1
+  sprite: {fileID: 353330878749756678, guid: e64d20841481cd64a971f7767d70ee0a, type: 3}
+  animatorController: {fileID: 9100000, guid: d5f2633f764b9c040b3ebd03f108eea9, type: 2}
+  material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
+  Speed_Idle: 20
+  Speed_FollowPlayer: 55
+  TimeBetweenAction_FollowPlayer: 0.1
+  MovementWeight_FollowPlayer: 1
+  Speed_Escape: 80
+  TimeBetweenAction_Escape: 0.1
+  MovementWeight_Escape: 1
   Speed_Attack: 0
   TimeBetweenAction_Attack: 0
   NeighborRadius: 50
