@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
     HealthComponent hc;
+    SpriteRenderer sr;
+    Animator an;
+
     //Input
     Vector2 inputDirection;
     bool inputSwam;
@@ -17,6 +20,7 @@ public class PlayerController : MonoBehaviour
     Vector2 movement;
     Vector2 direction;
     float currentSpeed;
+    Controller2D controller;
 
     //Mechanics
     [Header("MECHANICS")]
@@ -30,6 +34,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float waterFriction = 25;
     [SerializeField] float timeForWaterPull = 3f;
     [SerializeField] int startingHealth = 6;
+    [SerializeField] Material material;
 
     //Tools
     [Header("TOOLS")]
@@ -57,6 +62,13 @@ public class PlayerController : MonoBehaviour
 
         hc = this.gameObject.AddComponent<HealthComponent>();
         hc.Setup(startingHealth);
+
+        an = this.gameObject.GetComponent<Animator>();
+
+        sr = this.gameObject.GetComponent<SpriteRenderer>();
+        sr.material = new Material(material);
+
+        controller = this.gameObject.GetComponent<Controller2D>();
         
     }
     
@@ -75,6 +87,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Debug.Log(controller.collisions.below);
 
         st = new status().Init();
 
@@ -82,8 +95,11 @@ public class PlayerController : MonoBehaviour
             st.Dead();
 
         //Movement
-        HandleInput();
+        var dir = HandleInput();
         HandleMovement();
+
+        //Animation
+        Animate();
 
         //Loop
         currentOxygen -= Time.deltaTime;
@@ -95,8 +111,50 @@ public class PlayerController : MonoBehaviour
             hc.Kill();
     }
 
+
+    void Animate(){
+
+        var up = Vector2.up;
+        var up_angle_left = (Vector2.up + Vector2.left).normalized;
+        var up_angle_right = (Vector2.up + Vector2.right).normalized;
+        var left = Vector2.left;
+        var right = Vector2.right;
+        var down_angle_left = (Vector2.down + Vector2.left).normalized;
+        var down_angle_right = (Vector2.down + Vector2.right).normalized;
+        var down = (Vector2.down);
+
+        var reversed = PointHelper.MouseWorldPos().y > this.transform.position.y;
+
+        var dir = (timeSinceLastSwam > timeForWaterPull) ? inputDirection : direction;
+
+        if(dir == up)
+            an.Play("player_swim_up");
+        if(dir == up_angle_left || dir == up_angle_right){
+            if(reversed)
+                an.Play("player_swim_up_angled_reversed");
+            else
+                an.Play("player_swim_up_angled");
+        }
+        if(dir == left || dir == right){
+            if(reversed)
+                an.Play("player_swim_left_reversed");
+            else
+                an.Play("player_swim_left");
+        }
+        if(dir == down_angle_left || dir == down_angle_right ){
+            if(reversed)
+                an.Play("player_swim_down_angled_reversed");
+            else
+                an.Play("player_swim_down_angled");
+        }
+        if(dir == down)
+            an.Play("player_swim_down");
+
+        sr.flipX = dir.x >= 0;
+    }
+
     #region functions
-    bool HandleInput(){
+    Vector2 HandleInput(){
         inputDirection.Set(0,0);
         inputSwam = false;
 
@@ -114,7 +172,7 @@ public class PlayerController : MonoBehaviour
 
         inputDirection.Normalize();
 
-        return inputDirection != Vector2.zero || inputSwam != false;
+        return inputDirection;
     }
 
     void HandleMovement(){
@@ -144,7 +202,8 @@ public class PlayerController : MonoBehaviour
             movement += waterPull;
         }
 
-        rb.velocity = movement;
+        // rb.velocity = movement;
+        controller.Move(movement * Time.deltaTime);
     }
     #endregion
 }
