@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de0516f6a8171a4bb1c385b78fa20c1, type: 3}
+  m_Name: ToolHelperData
+  m_EditorClassIdentifier: 
+  blowtorchPrefab: {fileID: 8279539971720507670, guid: a452d8bf34568ef43a4c7fbc1048b776, type: 3}
+  harpoonPrefab: {fileID: 7614132523565004867, guid: f4efd59af0a35054ab557144a67d4f70, type: 3}
