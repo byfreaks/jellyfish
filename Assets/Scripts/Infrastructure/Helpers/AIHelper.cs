@@ -13,9 +13,13 @@ public static class AIHelper
         if(enemies.Count == 0)
             return Vector2.zero;
         
+        //Because performance is better use sqrMagnitude than magnitude.
+        float squareAvoidanceRadius = enemy.enemyData.AvoidanceWeight;
+        squareAvoidanceRadius *= squareAvoidanceRadius;
+
         //Enemies nearby -> Calculate adjustment
         Vector2 flockAdjustment = Vector2.zero;
-        flockAdjustment += FlockAvoidanceBehaviour(enemy, enemies).normalized * enemy.enemyData.AvoidanceWeight;
+        flockAdjustment += FlockAvoidanceBehaviour(enemy, enemies, squareAvoidanceRadius).normalized * enemy.enemyData.AvoidanceWeight;
         flockAdjustment += FlockAlignmentBehaviour(enemy, enemies).normalized * enemy.enemyData.AligmentWeight;
         flockAdjustment += FlockCohesionBehaviour(enemy, enemies).normalized * enemy.enemyData.CohesionWeight;
 
@@ -29,19 +33,21 @@ public static class AIHelper
         {
             if (c != enemy.bc)
             {
-                enemies.Add(c.gameObject.GetComponent<EnemyController>());
+                EnemyController enemyNearby = c.gameObject.GetComponent<EnemyController>();
+                if(enemyNearby != null)
+                    enemies.Add(enemyNearby);
             }
         }
         return enemies;
     }
-    static Vector2 FlockAvoidanceBehaviour(EnemyController enemy, List<EnemyController> enemies)
+    static Vector2 FlockAvoidanceBehaviour(EnemyController enemy, List<EnemyController> enemies, float squareAvoidanceRadius)
     {
         Vector2 avoidanceAdjustment = Vector2.zero;
         int numberToAvoid = 0;
         //Add all positions, take the average
         foreach(EnemyController enemyNearby in enemies)
         {
-            if (Vector2.SqrMagnitude(enemyNearby.transform.position - enemy.transform.position) < enemy.enemyData.AvoidanceRadius)
+            if (Vector2.SqrMagnitude(enemyNearby.transform.position - enemy.transform.position) < squareAvoidanceRadius)
             {
                 numberToAvoid++;
                 avoidanceAdjustment += (Vector2)(enemy.transform.position - enemyNearby.transform.position);
