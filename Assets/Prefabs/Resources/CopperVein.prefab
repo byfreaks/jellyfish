@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3704189570660401209}
   - component: {fileID: 3704189570660401211}
   - component: {fileID: 3704189570660401208}
+  - component: {fileID: 908509491450849430}
   m_Layer: 9
   m_Name: CopperVein
   m_TagString: Untagged
@@ -53,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,3 +116,35 @@ MonoBehaviour:
   duration: 0.4
   damageColor: {r: 0.1882353, g: 0.88235295, b: 0.7254902, a: 0}
   material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
+--- !u!60 &908509491450849430
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3704189570660401210}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 16, y: 16}
+    newSize: {x: 20, y: 20}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -8, y: -8}
+      - {x: 6.0618286, y: -8.000015}
+      - {x: 5.9448547, y: -2.339798}
+      - {x: 2.678833, y: 4.018265}
+      - {x: 0.67922974, y: 4.0916443}
+      - {x: -5.0479736, y: 0.72895813}
+      - {x: -7.7798157, y: -3.3673859}

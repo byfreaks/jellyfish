@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     [Header("SETTINGS")]
     [SerializeField] float movementSpeed = 200;
     [SerializeField] float waterFriction = 25;
+    [SerializeField] float waterFrictionDefaultFactor = 1f;
+    [SerializeField] float waterFrictionDiveFactor = 0.4f;
     [SerializeField] float timeForWaterPull = 3f;
     [SerializeField] int startingHealth = 6;
     [SerializeField] Material material;
@@ -39,6 +41,9 @@ public class PlayerController : MonoBehaviour
     //Tools
     [Header("TOOLS")]
     [SerializeField] GameObject equippedTool;
+    
+    int selectedItem;
+    [SerializeField] GameObject torch, harpoonGun;
 
     struct status{
         public bool canMove;
@@ -81,8 +86,11 @@ public class PlayerController : MonoBehaviour
         InitializeParams();
         InitializeComponents();
 
-        ToolHelper.InstantiateTool(tools.blowtorch, this.transform);
-        // ToolHelper.InstantiateTool(tools.harpoon, this.transform);
+        torch = ToolHelper.InstantiateTool(tools.blowtorch, this.transform);
+        torch.SetActive(false);
+
+        harpoonGun = ToolHelper.InstantiateTool(tools.harpoon, this.transform);
+        harpoonGun.SetActive(false);
     }
 
     void Update()
@@ -91,15 +99,22 @@ public class PlayerController : MonoBehaviour
 
         st = new status().Init();
 
-        if(hc.isDead)
+        if(Input.GetKeyDown(KeyCode.Q))
+            gameObject.GetComponent<BubbleEmitter>().Emit(10, 50f, new Vector2(0.5f, 0.5f));
+
+        if(hc.isDead){
             st.Dead();
+            an.Play("player_death");
+        }
 
         //Movement
         var dir = HandleInput();
         HandleMovement();
+        OrganizeInventory();
 
         //Animation
-        Animate();
+        if(!hc.isDead)
+            Animate();
 
         //Loop
         currentOxygen -= Time.deltaTime;
@@ -111,9 +126,27 @@ public class PlayerController : MonoBehaviour
             hc.Kill();
     }
 
+    void OrganizeInventory(){
+        //direct
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+            SelectTool(torch);
+
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+            SelectTool(harpoonGun);
+        
+    }
+
+    void SelectTool(GameObject tool){
+        if(tool == equippedTool) return;
+        else {
+            if(equippedTool != null)
+                equippedTool.SetActive(false);
+            equippedTool = tool;
+            equippedTool.SetActive(true);
+        } 
+    }
 
     void Animate(){
-
         var up = Vector2.up;
         var up_angle_left = (Vector2.up + Vector2.left).normalized;
         var up_angle_right = (Vector2.up + Vector2.right).normalized;
@@ -123,26 +156,26 @@ public class PlayerController : MonoBehaviour
         var down_angle_right = (Vector2.down + Vector2.right).normalized;
         var down = (Vector2.down);
 
-        var reversed = PointHelper.MouseWorldPos().y > this.transform.position.y;
-
         var dir = (timeSinceLastSwam > timeForWaterPull) ? inputDirection : direction;
+        var mouseToRight = PointHelper.MouseWorldPos().x >= this.transform.position.x;
+        var sameDir = (mouseToRight && dir.x > 0) || (!mouseToRight && dir.x <= 0);
 
         if(dir == up)
             an.Play("player_swim_up");
         if(dir == up_angle_left || dir == up_angle_right){
-            if(reversed)
+            if(!sameDir)
                 an.Play("player_swim_up_angled_reversed");
             else
                 an.Play("player_swim_up_angled");
         }
         if(dir == left || dir == right){
-            if(reversed)
+            if(!sameDir)
                 an.Play("player_swim_left_reversed");
             else
                 an.Play("player_swim_left");
         }
         if(dir == down_angle_left || dir == down_angle_right ){
-            if(reversed)
+            if(!sameDir)
                 an.Play("player_swim_down_angled_reversed");
             else
                 an.Play("player_swim_down_angled");
@@ -188,7 +221,8 @@ public class PlayerController : MonoBehaviour
                 timeSinceLastSwam += Time.deltaTime;
             }
             
-            var drag = (waterFriction * Time.deltaTime) / 2f;
+            var factor = Input.GetKey(KeyCode.Space) ? waterFrictionDiveFactor : waterFrictionDefaultFactor;
+            var drag = ((waterFriction * factor) * Time.deltaTime) / 2f;
 
             currentSpeed = Mathf.SmoothStep(currentSpeed, 0, drag);
 

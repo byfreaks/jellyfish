@@ -55,6 +55,32 @@ public class EnemyController : MonoBehaviour
         }
         currentBehaviour = newBehaviour;
     }
+    public void CalculateNewDirection()
+    {
+        //Follow Player
+        if(currentBehaviour == EnemyBehaviour.FollowPlayer)
+            currentDirection = (Player.transform.position - transform.position).normalized * enemyData.FollowPlayerWeight;
+        //Escape
+        else if(currentBehaviour == EnemyBehaviour.Escape) 
+            currentDirection = -(Player.transform.position - transform.position).normalized * enemyData.EscapeWeight;
+    
+        //Flock adjustments
+        currentDirection += AIHelper.FlockMainBehaviour(this).normalized;
+    }
+    public void MoveEnemy()
+    {
+        //Move
+        Vector2 newVelocity = PhysicsHelper.calculateVelocity(ref currentSpeed, speed, currentDirection, timeSinceLastSwam);
+        //Speed limit
+        if(newVelocity.magnitude > speed)
+            newVelocity = newVelocity.normalized * speed;
+        rb.velocity = newVelocity;
+    }
+    public void HandleAnimation()
+    {
+        //Sprite point to right or left
+        sr.flipX = (currentDirection.x > 0);
+    }
     #endregion
 
     #region Unity Engine Loop
@@ -62,6 +88,7 @@ public class EnemyController : MonoBehaviour
     {
         sr = gameObject.AddComponent<SpriteRenderer>();
         sr.sprite = enemyData.sprite;
+        sr.material = enemyData.material;
 
         rb = gameObject.AddComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
@@ -91,29 +118,17 @@ public class EnemyController : MonoBehaviour
             timeSinceLastSwam = 0;
         }
 
-        //Swim again
+        //Each x seconds is calculated a new direction
         if(timeSinceLastSwam > timeBetweenSwams)
         {
             timeSinceLastSwam = 0;
             currentSpeed = speed;
-            
-            //Follow Player
-            if(currentBehaviour == EnemyBehaviour.FollowPlayer)
-                currentDirection = (Player.transform.position - transform.position).normalized;
-            //Escape
-            else if(currentBehaviour == EnemyBehaviour.Escape) 
-                currentDirection = -(Player.transform.position - transform.position).normalized;
-        
-            //Flock adjustments
-            currentDirection += AIHelper.FlockMainBehaviour(this).normalized;
+            CalculateNewDirection();
         }
-        
-        //Move
-        Vector2 newVelocity = PhysicsHelper.calculateVelocity(ref currentSpeed, speed, currentDirection, timeSinceLastSwam);
-        //Speed limit
-        if(newVelocity.magnitude > speed)
-            newVelocity = newVelocity.normalized * speed;
-        rb.velocity = newVelocity;
+
+        //Update velocity
+        MoveEnemy();
+        HandleAnimation();
     }
     #endregion
 }

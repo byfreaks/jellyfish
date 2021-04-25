@@ -5,9 +5,10 @@ using UnityEngine;
 public class ResourceController : MonoBehaviour
 {
 
-    BoxCollider2D bc;
+    PolygonCollider2D pc;
     Rigidbody2D rb;
     HealthComponent hc;
+    Animator an;
 
     [SerializeField] ResourceData resource;
     [SerializeField] int amount;
@@ -24,14 +25,15 @@ public class ResourceController : MonoBehaviour
 
     void Start()
     {
-        bc = this.gameObject.AddComponent<BoxCollider2D>();
+        pc = this.gameObject.GetComponent<PolygonCollider2D>();
 
         rb = this.gameObject.AddComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
 
         hc = this.gameObject.GetComponent<HealthComponent>();
         hc.Setup(3);
-        // hc.Setup(3);
+
+        an = this.gameObject.GetComponent<Animator>();
     }
 
     void Update()
