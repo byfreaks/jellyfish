@@ -4,8 +4,10 @@ using UnityEngine;
 
 public enum EnemyBehaviours
 {
+    None,
     Idle,
     FollowPlayer,
     Attack,
-    Escape
+    Escape,
+    MoveToPoint
 }
