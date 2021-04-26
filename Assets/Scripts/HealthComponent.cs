@@ -5,7 +5,7 @@ public class HealthComponent : MonoBehaviour
 {
 
     int maxHealth;
-    [SerializeField] int currentHealth;
+    [SerializeField] public int currentHealth;
 
     [Header("FeedbackEffect Settings")]
     public float duration = 0.4f;
@@ -17,11 +17,18 @@ public class HealthComponent : MonoBehaviour
     public bool isDead {get; private set; }
     private bool hasBeenSetup;
 
+    private bool isInPlayer;
+    PlayerController pc;
+
     private void Awake() {
         if(TryGetComponent<SpriteRenderer>(out var sr)){
             if(sr.material == null)
                 sr.material = new Material(material);
         }
+
+        isInPlayer = this.gameObject.TryGetComponent<PlayerController>(out var no);
+        pc = no;
+
     }
 
     public void Setup(int max = 5, int? current = null){
@@ -38,11 +45,14 @@ public class HealthComponent : MonoBehaviour
         hasBeenSetup = true;
     }
 
-
     void AlterHealth(int mod)
     {
         if(!hasBeenSetup) Debug.LogError($"{this.gameObject.name}'s health component has not ben set up!");
         if(isDead) return;
+
+        if(isInPlayer){
+            pc.UpdateHpPanel();
+        }
 
         currentHealth += mod;
         if(currentHealth <= 0){
@@ -62,7 +72,10 @@ public class HealthComponent : MonoBehaviour
     }
 
     public void HealAll(){
-        AlterHealth(maxHealth - currentHealth);
+        currentHealth = maxHealth;
+        isDead = false;
+        var col = this.gameObject.GetComponent<SpriteRenderer>().sharedMaterial.color;
+        this.gameObject.GetComponent<SpriteRenderer>().sharedMaterial.SetColor("_Tint", new Color(col.r, col.g, col.b, 0));
     }
 
     public void Kill(){

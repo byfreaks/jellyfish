@@ -24,7 +24,7 @@ public class HarpoonBehaviour : MonoBehaviour
     void Update()
     {
         currentCooldown -= Time.deltaTime; 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && !pc.openInventory)
             Shoot();
 
         if(currentCooldown <= 0){
@@ -39,9 +39,6 @@ public class HarpoonBehaviour : MonoBehaviour
 
     void Shoot()
     {
-
-        
-
         if(currentCooldown <= 0){
             currentCooldown = cooldown;
             var missile = Instantiate(harpoonMissile, fire.transform.position, Quaternion.identity).GetComponent<MissileComponent>();

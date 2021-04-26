@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4539754158137771305}
   - component: {fileID: 4539754158137771308}
   - component: {fileID: 4539754158137771309}
-  - component: {fileID: 4539754158137771315}
   - component: {fileID: 4539754158137771314}
+  - component: {fileID: 1306840317156921413}
   m_Layer: 8
   m_Name: AlgaeBarrier
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4539754158137771304}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071064, w: -0.7071072}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 106.1, y: -21.4, z: -0.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   duration: 0.4
-  damageColor: {r: 0, g: 0, b: 0, a: 0}
+  damageColor: {r: 0.1882353, g: 0.88235295, b: 0.7254902, a: 0}
   material: {fileID: 0}
 --- !u!114 &4539754158137771305
 MonoBehaviour:
@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db984f7d4655f74baf77ba80752d5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 3
   amount: 0
 --- !u!212 &4539754158137771308
 SpriteRenderer:
@@ -135,32 +136,6 @@ MonoBehaviour:
   - {fileID: 8447740044149150253, guid: 5c26aac55eb7adb47860e8bd2d4bbb0c, type: 3}
   - {fileID: -7050477926400343135, guid: 5c26aac55eb7adb47860e8bd2d4bbb0c, type: 3}
   - {fileID: 2508118703457117887, guid: 5c26aac55eb7adb47860e8bd2d4bbb0c, type: 3}
---- !u!61 &4539754158137771315
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4539754158137771304}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 64, y: 16}
-    newSize: {x: 64, y: 16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 64, y: 16}
-  m_EdgeRadius: 0
 --- !u!50 &4539754158137771314
 Rigidbody2D:
   serializedVersion: 4
@@ -182,3 +157,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &1306840317156921413
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539754158137771304}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 64, y: 16}
+    newSize: {x: 64, y: 16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 31, y: 45}
+      - {x: 29, y: 47}
+      - {x: 12, y: 47}
+      - {x: 2, y: 34}
+      - {x: -4, y: 4}
+      - {x: -22, y: -6}
+      - {x: -30, y: -23}
+      - {x: -30, y: -45}
+      - {x: -28, y: -47}
+      - {x: 10, y: -47}
+      - {x: 13, y: -44}
+      - {x: 16, y: -40}
+      - {x: 31, y: -16}

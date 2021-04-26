@@ -15,6 +15,9 @@ public class ResourceController : MonoBehaviour
     [SerializeField] int minAmount;
     [SerializeField] int maxAmount;
     [SerializeField] Light2D resLight;
+    [SerializeField] bool respawneable;
+
+    [SerializeField] int health = 3;
 
     float damageCooldown = 0.8f;
     float currentCooldown;
@@ -26,6 +29,11 @@ public class ResourceController : MonoBehaviour
         }
     }
 
+    public void Restore(){
+        hc.HealAll();
+        this.gameObject.SetActive(true);
+    }
+
     void Start()
     {
         pc = this.gameObject.GetComponent<PolygonCollider2D>();
@@ -34,7 +42,7 @@ public class ResourceController : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
 
         hc = this.gameObject.GetComponent<HealthComponent>();
-        hc.Setup(3);
+        hc.Setup(health);
 
         an = this.gameObject.GetComponent<Animator>();
     }
@@ -50,7 +58,6 @@ public class ResourceController : MonoBehaviour
         {
             var currIn = resLight.intensity;
             resLight.intensity = Mathf.Clamp(Mathf.Sin(Time.time * 1.3f), 0, 1);
-            Debug.Log(Mathf.Sin(Time.time) );
         }
 
         if(hc.isDead){
@@ -60,6 +67,7 @@ public class ResourceController : MonoBehaviour
                 Instantiate(resource.droppable, this.transform.position, Quaternion.identity);
             }
             this.gameObject.SetActive(false);
+            if(respawneable) RespawnHelper.AddToRestore(this.gameObject);
         }
     }
 }
