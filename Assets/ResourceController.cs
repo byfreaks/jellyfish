@@ -50,7 +50,6 @@ public class ResourceController : MonoBehaviour
         {
             var currIn = resLight.intensity;
             resLight.intensity = Mathf.Clamp(Mathf.Sin(Time.time * 1.3f), 0, 1);
-            Debug.Log(Mathf.Sin(Time.time) );
         }
 
         if(hc.isDead){
