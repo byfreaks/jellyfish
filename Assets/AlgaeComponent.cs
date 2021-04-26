@@ -7,7 +7,7 @@ public class AlgaeComponent : MonoBehaviour
 
     HealthComponent healthComponent;
     BubbleEmitter be;
-    int health = 3;
+    public int health = 3;
 
     public int amount;
     float speed = 50f;
@@ -18,7 +18,7 @@ public class AlgaeComponent : MonoBehaviour
     void Start()
     {
         healthComponent = this.gameObject.GetComponent<HealthComponent>();
-        healthComponent.Setup(3);
+        healthComponent.Setup(health);
 
         be = this.gameObject.GetComponent<BubbleEmitter>();
     }
@@ -37,7 +37,8 @@ public class AlgaeComponent : MonoBehaviour
             currentCooldown -= Time.deltaTime;
 
         if(healthComponent.isDead){
-            be.Emit(Random.Range(2,5), speed, Vector2.up);
+            var am = amount == 0 ? Random.Range(2,5) : amount;
+            be.Emit(am, speed, Vector2.up);
             GameObject.Destroy(this.gameObject, 0.01f);
         }
 

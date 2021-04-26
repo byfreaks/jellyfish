@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3480387339424292797}
   - component: {fileID: 3480387339424292795}
   - component: {fileID: 948547437392562359}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PickableSilicon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
