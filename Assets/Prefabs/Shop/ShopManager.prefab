@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1165185837213285479
+--- !u!1 &4557849766231330531
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1165185837213285476}
-  - component: {fileID: 1774493790129481843}
+  - component: {fileID: 4557849766231330530}
+  - component: {fileID: 4557849765564187750}
   m_Layer: 0
   m_Name: ShopManager
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1165185837213285476
+--- !u!4 &4557849766231330530
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1165185837213285479}
+  m_GameObject: {fileID: 4557849766231330531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 158.50049, y: 54.565933, z: -11.868619}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,15 +31,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1774493790129481843
+--- !u!114 &4557849765564187750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1165185837213285479}
+  m_GameObject: {fileID: 4557849766231330531}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6984f11a4a69a394590b9999cf1a1ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  current: {fileID: 0}
+  inventoryManager: {fileID: 0}
+  referenceI3X3: {fileID: 11400000, guid: 4dd72bfe5a1495642886536b9850ff08, type: 2}
+  referenceI3X4: {fileID: 11400000, guid: 2aad5c75f57de1e439f456bdbcdf8abe, type: 2}
+  referenceI4X4: {fileID: 11400000, guid: c78f79f197a6ce5468859388d6e3f144, type: 2}
+  referenceI5X5: {fileID: 11400000, guid: fea6167215988f141a01166f1fd102f7, type: 2}

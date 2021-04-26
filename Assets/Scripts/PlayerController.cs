@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
     //Inventory
     public InventoryManager inventoryManager;
+    public GameObject shopPanel;
     public bool openInventory = false;
 
     //bubbles
@@ -336,7 +337,13 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     public void ShoppingMenu(bool open){
-        Debug.Log($"shop open: {open}");
+        if(Time.timeScale == 1.0f){
+            Time.timeScale = 0;
+            shopPanel.gameObject.SetActive(open);
+        }else{
+            Time.timeScale = 1.0F;
+            shopPanel.gameObject.SetActive(open);
+        }   
     }
 
 }
