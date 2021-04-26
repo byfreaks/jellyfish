@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProximityFinder : MonoBehaviour
 {
-    [SerializeField] List<GameObject> nearPickables = new List<GameObject>();
+    [SerializeField] public List<GameObject> nearPickables = new List<GameObject>();
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.transform.name.Contains("Pickable")){
