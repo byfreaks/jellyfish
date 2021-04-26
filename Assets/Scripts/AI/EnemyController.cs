@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviour
     public void ChangeBehaviour(EnemyBehaviours newBehaviour)
     {
         //[DEBUG]
-        if(currentBehaviour !=null) Debug.Log("Old behaviour:" + currentBehaviour.type);
+        //if(currentBehaviour !=null) Debug.Log("Old behaviour:" + currentBehaviour.type);
         //
         if(newBehaviour == EnemyBehaviours.Idle) currentBehaviour = new Idle();
         if(newBehaviour == EnemyBehaviours.FollowPlayer) currentBehaviour = new FollowPlayer();
@@ -50,7 +50,7 @@ public class EnemyController : MonoBehaviour
         currentBehaviour.Init(this);
         timeSinceLastAction = 0;
         //[DEBUG]
-        Debug.Log("New behaviour:" + currentBehaviour.type);
+        //Debug.Log("New behaviour:" + currentBehaviour.type);
         //
     }
     public void UpdateVelocity()
@@ -94,8 +94,12 @@ public class EnemyController : MonoBehaviour
     }
     void Update()
     {
-        timeSinceLastAction += Time.deltaTime;
+        //Dead
+        if(hc.isDead)
+            Destroy(this.gameObject);
+
         /* BEHAVIOUR ACTIONS */
+        timeSinceLastAction += Time.deltaTime;
         if(timeSinceLastAction > TimeBetweenActions)
         {
             timeSinceLastAction = 0;
@@ -107,6 +111,14 @@ public class EnemyController : MonoBehaviour
         UpdateVelocity();
         UpdateSpriteDirection();
         enemyBrain.CheckConditionsForNewBehaviours(this);
+    }
+    #endregion
+
+    #region Damage
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.name == "Fire" || other.gameObject.name == "PickableHarpoonMissile"){
+            hc.Hurt();
+        }
     }
     #endregion
 }
