@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8c574cfcf6b07044b99f7fe004ef93b, type: 3}
-  m_Name: CopperOre
+  m_Name: Silicon
   m_EditorClassIdentifier: 
-  resourceName: Copper Ore
-  droppable: {fileID: 5597187289772318737, guid: 3c46e0fe374461749aefd57f9b3791ad, type: 3}
-  inventoryItem: {fileID: 3789898005547054880, guid: b58663722941ee743978f31ec740d5fe, type: 3}
+  resourceName: Silicon
+  droppable: {fileID: 3480387339424292796, guid: 1e1c8ef7c3f0e1c4d8625c4bfe02d2d3, type: 3}
+  inventoryItem: {fileID: 9122262839511707229, guid: 99989a36351287e4489ea2d5fb03e0c2, type: 3}
   resourceType: 1
