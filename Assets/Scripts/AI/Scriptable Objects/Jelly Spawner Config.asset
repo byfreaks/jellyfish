@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246a1347703385944bfee90dfc2a36b1, type: 3}
+  m_Name: Jelly Spawner Config
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 1470419169217725194, guid: 73378b0323e018348b3e85b0d061f4c4, type: 3}
+  spawnerSize: 1
+  secondsToFirstSpawn: 0
+  secondsToSpawn: 120
+  respawnEnemies: 1

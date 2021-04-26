@@ -10,8 +10,10 @@ public class BubbleBehaviour : MonoBehaviour
 
     [SerializeField] Vector2 impulseDirection;
     [SerializeField] float upwardsOffset;
+    [SerializeField] float upwardsOffsetY;
 
     Rigidbody2D rb;
+    float bubbleUpSpeed;
 
     public void Initialize(Vector2 dir, float speed, Sprite spr){
         impulseDirection = dir;
@@ -21,6 +23,7 @@ public class BubbleBehaviour : MonoBehaviour
 
     private void Start() {
         rb = this.GetComponent<Rigidbody2D>();
+        bubbleUpSpeed = Random.Range(0f, upwardsOffsetY);
     }
 
     void Update()
@@ -31,7 +34,7 @@ public class BubbleBehaviour : MonoBehaviour
             speed = Mathf.SmoothStep(speed, slowSpeed, drag);   
             rb.velocity = impulseDirection * speed;
         } else {
-            rb.velocity = (Vector2.up + new Vector2(Random.Range(-upwardsOffset, upwardsOffset), Random.Range(0f, 2f)) ) * slowSpeed;
+            rb.velocity = (Vector2.up + new Vector2(Random.Range(-upwardsOffset, upwardsOffset), bubbleUpSpeed + Random.Range(0f, 1.5f)) ) * slowSpeed;
         }
     }
 }

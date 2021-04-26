@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15d8c417846b08f44aa607b0e4c173a7, type: 3}
+  m_Name: Big Fish Config
+  m_EditorClassIdentifier: 
+  MaxHealth: 5
+  Hitbox: {fileID: 567444335534887055, guid: e3e799a0cff31a54c846cd65d682e4a1, type: 3}
+  HitboxOffset: {x: -8, y: 0}
+  enemyBrain: {fileID: 11400000, guid: 6c9d8014a4c2e444faf0e3f55efaca27, type: 2}
+  sprite: {fileID: 8596640243658272642, guid: c4aef19f8232450408e48368d0a23254, type: 3}
+  animatorController: {fileID: 9100000, guid: a9ea2a62f42d21a4690ad6a8bdc9281e, type: 2}
+  material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
+  hasAttackAnimation: 1
+  Speed_Default: 20
+  TimeBetweenAction_Default: 1
+  MovementWeight_Default: 1
+  Speed_FollowPlayer: 50
+  TimeBetweenAction_FollowPlayer: 0.1
+  MovementWeight_FollowPlayer: 1
+  Speed_Escape: 70
+  TimeBetweenAction_Escape: 0.1
+  MovementWeight_Escape: 4
+  Speed_Attack: 10
+  TimeBetweenAction_Attack: 0.3
+  NeighborRadius: 40
+  AvoidanceRadius: 20
+  MovementWeight_Avoidance: 1
+  MovementWeight_Aligment: 1
+  MovementWeight_Cohesion: 0.1

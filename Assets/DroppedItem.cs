@@ -11,6 +11,7 @@ public class DroppedItem : MonoBehaviour
     [SerializeField] float horizontalTimeOffset;
     [SerializeField] float verticalTimeOffset;
     float naturalOffset;
+    public bool anchorPos = true;
 
     private void Start() {
         anchorPosition = this.transform.position;
@@ -22,6 +23,7 @@ public class DroppedItem : MonoBehaviour
     }
 
     private void Update() {
-        this.transform.position = anchorPosition + new Vector2(Mathf.Sin(Time.time + naturalOffset + horizontalTimeOffset) * factor, Mathf.Sin(Time.time + naturalOffset + verticalTimeOffset) * factor);
+        if(anchorPos)
+            this.transform.position = anchorPosition + new Vector2(0, Mathf.Sin(Time.time + naturalOffset + verticalTimeOffset) * factor);
     }
 }

@@ -7,21 +7,28 @@ public class Enemy: ScriptableObject
 {
     [Header("Attributes")]
     public int MaxHealth = 5;
+
+    [Header("AI Configs")]
     public GameObject Hitbox;
-    public bool hasIdleBehaviour = true;
-    public bool hasAttackBehaviour = true;
-    public bool hasFollowPlayerBehaviour = true;
-    public bool hasEscapeBehaviour = true;
+    public Vector2 HitboxOffset;
+    public EnemyBrain enemyBrain;
 
     [Header("Graphic Configs")]
     public Sprite sprite;
     public RuntimeAnimatorController animatorController;
     public Material material;
+    public bool hasAttackAnimation;
 
-    [Header("Behaviour Config - Idle")]
+    [Header("Behaviour Config - Default")]
     
     [Range(MIN_SPEED, MAX_SPEED)]
-    public float Speed_Idle;    
+    public float Speed_Default;    
+    
+    [Range(MIN_TIME_BETWEEN_BEHAVIOUR_ACTION, MAX_TIME_BETWEEN_BEHAVIOUR_ACTION)]
+    public float TimeBetweenAction_Default;
+
+    [Range(MIN_BEHAVIOUR_WEIGHT, MAX_BEHAVIOUR_WEIGHT)]
+    public float MovementWeight_Default;
 
     [Header("Behaviour Config - Follow Player")]
 
