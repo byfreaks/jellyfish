@@ -7,8 +7,9 @@ using UnityEngine.EventSystems;
 public class CustomButton : MonoBehaviour, IPointerClickHandler
 {
   public ShopUpgradeInventoryTypeHelper upgradeInventoryType;
+  public ShopManager shopManager;
   public void OnPointerClick(PointerEventData pointerEventData)
   {
-    ShopManager.BuyInventoryUpgrade(upgradeInventoryType);
+    shopManager.BuyInventoryUpgrade(upgradeInventoryType);
   }
 }

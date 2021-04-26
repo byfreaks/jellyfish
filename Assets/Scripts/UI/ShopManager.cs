@@ -10,29 +10,60 @@ public class ShopManager : MonoBehaviour
     public ShopData referenceI3X4;
     public ShopData referenceI4X4;
     public ShopData referenceI5X5;
-
     private void Awake() {
         current = this;
     }
 
-    public static void BuyInventoryUpgrade(ShopUpgradeInventoryTypeHelper type){
-        Debug.Log("COMPRA DE INVENTARIO");
-        Debug.Log(type);
-
+    public void BuyInventoryUpgrade(ShopUpgradeInventoryTypeHelper type){
         switch (type)
         {
             case ShopUpgradeInventoryTypeHelper.i3x3:
-                Debug.Log("Case 1");
+                if(current.validateBuy(referenceI3X3)){
+                    Debug.Log("COMPRA DE INVENTARIO");
+                }else{
+                    Debug.Log("COMPRA DE INVENTARIO FALLIDA (FALTA DE RECURSOS)");
+                }
                 break;
             case ShopUpgradeInventoryTypeHelper.i3x4:
-                Debug.Log("Case 2");
+                current.validateBuy(referenceI3X4);
                 break;
             case ShopUpgradeInventoryTypeHelper.i4x4:
-                Debug.Log("Case 3");
+                current.validateBuy(referenceI4X4);
                 break;
             case ShopUpgradeInventoryTypeHelper.i5x5:
-                Debug.Log("Case 4");
+                current.validateBuy(referenceI5X5);
                 break;
+        }
+    }
+
+    public bool validateBuy(ShopData reference){
+        bool accept = false;
+
+        List<GameObject> currentCopperOre = new List<GameObject>();
+        List<GameObject> currentSilicon = new List<GameObject>();
+        List<GameObject> currentFiber = new List<GameObject>();
+
+        foreach (var item in inventoryManager.currentItems)
+        {
+            switch (item.name)
+            {
+                case "AlgaeDragElement":
+                    currentFiber.Add(item);
+                    break;
+                case "SiliconDragElement":
+                    currentSilicon.Add(item);
+                    break;
+                case "CopperOreDragElement":
+                    currentCopperOre.Add(item);
+                    break;
+            }
+            
+        }
+
+        if(currentCopperOre.Count >= reference.copperOre && currentFiber.Count >= reference.fiber && currentSilicon.Count >= reference.silicon){
+            return true;
+        }else{
+            return false;
         }
     }
 }

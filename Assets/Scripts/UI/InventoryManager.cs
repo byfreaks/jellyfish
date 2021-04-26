@@ -121,7 +121,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         availibleItems.Clear();
-        // Debug.Log(draggableItems.Count);
         draggableItems.Clear();
         pickableItems.Clear();
 
