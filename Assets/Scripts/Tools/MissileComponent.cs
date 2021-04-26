@@ -28,6 +28,7 @@ public class MissileComponent : MonoBehaviour
     {
         sr = gameObject.AddComponent<SpriteRenderer>();
         sr.sprite = sprite;
+        sr.sortingLayerName = "Game";
 
         rb = gameObject.AddComponent<Rigidbody2D>();
         // rb.bodyType = RigidbodyType2D.Kinematic;

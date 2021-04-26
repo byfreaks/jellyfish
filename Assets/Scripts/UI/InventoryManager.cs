@@ -65,7 +65,7 @@ public class InventoryManager : MonoBehaviour
         {
 
             if(item != null){
-                Vector2 itemPosition = new Vector2(safeBound, Random.Range(inventoryPanel.GetComponent<RectTransform>().rect.yMin + 100, inventoryPanel.GetComponent<RectTransform>().rect.yMax - 100));
+                Vector2 itemPosition = new Vector2(safeBound, Random.Range(-120, 10));
                 GameObject availibleItem = Instantiate(item.GetComponent<DroppedItem>().item.inventoryItem, itemPosition, Quaternion.identity) as GameObject;
                 availibleItem.transform.SetParent(inventoryPanel.transform, false);
                 availibleItem.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 32);

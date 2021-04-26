@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class ResourceController : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class ResourceController : MonoBehaviour
     Animator an;
 
     [SerializeField] ResourceData resource;
-    [SerializeField] int amount;
+    [SerializeField] int minAmount;
+    [SerializeField] int maxAmount;
+    [SerializeField] Light2D resLight;
 
     float damageCooldown = 0.8f;
     float currentCooldown;
@@ -36,13 +39,23 @@ public class ResourceController : MonoBehaviour
         an = this.gameObject.GetComponent<Animator>();
     }
 
+    float rndOffset => Random.Range(-1.2f, 1.2f);
+
     void Update()
     {
         if(currentCooldown >= 0)
             currentCooldown -= Time.deltaTime;
 
+        if(resLight)
+        {
+            var currIn = resLight.intensity;
+            resLight.intensity = Mathf.Clamp(Mathf.Sin(Time.time * 1.3f), 0, 1);
+            Debug.Log(Mathf.Sin(Time.time) );
+        }
+
         if(hc.isDead){
-            for (int i = 0; i < amount; i++)
+            var drops = Random.Range(minAmount, maxAmount);
+            for (int i = 0; i < drops; i++)
             {
                 Instantiate(resource.droppable, this.transform.position, Quaternion.identity);
             }

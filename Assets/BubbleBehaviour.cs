@@ -31,7 +31,7 @@ public class BubbleBehaviour : MonoBehaviour
             speed = Mathf.SmoothStep(speed, slowSpeed, drag);   
             rb.velocity = impulseDirection * speed;
         } else {
-            rb.velocity = (Vector2.up + new Vector2(Random.Range(-upwardsOffset, upwardsOffset), 0) ) * slowSpeed;
+            rb.velocity = (Vector2.up + new Vector2(Random.Range(-upwardsOffset, upwardsOffset), Random.Range(0f, 2f)) ) * slowSpeed;
         }
     }
 }

@@ -49,7 +49,7 @@ MonoBehaviour:
   slowSpeed: 25
   bubbleDrag: 7
   impulseDirection: {x: 0, y: 0}
-  upwardsOffset: 1.3
+  upwardsOffset: 2
 --- !u!50 &3780447054482814183
 Rigidbody2D:
   serializedVersion: 4
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,8 +109,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1367615811
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -5712959122012955994, guid: c7dfe64e30990ef4f96f06c770d213df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
