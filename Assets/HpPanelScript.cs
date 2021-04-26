@@ -10,7 +10,7 @@ public class HpPanelScript : MonoBehaviour
     private int hgap = 3;
     RectTransform firstPos;
     
-    private void Start() {
+    private void Awake() {
         firstPos = GameObject.Find("FirstBarPos").GetComponent<RectTransform>();
     }
 

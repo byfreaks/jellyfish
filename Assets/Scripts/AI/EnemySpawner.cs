@@ -12,5 +12,6 @@ public class EnemySpawner : ScriptableObject
     public float secondsToSpawn = 100f;
     
     public bool respawnEnemies = true;
+    public Vector2 randomOffsetRange = Vector2.zero;
     
 }
