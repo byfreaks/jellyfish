@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15d8c417846b08f44aa607b0e4c173a7, type: 3}
+  m_Name: Jelly Fish Config
+  m_EditorClassIdentifier: 
+  MaxHealth: 5
+  Hitbox: {fileID: 2275429582610467617, guid: ad763e2aa716c8d4cbde08dd54808d32, type: 3}
+  HitboxOffset: {x: 0, y: -8}
+  enemyBrain: {fileID: 11400000, guid: 2195271b9323c3a498f6347c78b262c9, type: 2}
+  sprite: {fileID: 1965404493759735644, guid: 4cd8a430232eea647a1f44304594d5ae, type: 3}
+  animatorController: {fileID: 9100000, guid: 86bbf5ddf5ea5cb4aa17622ef7c5b1fb, type: 2}
+  material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
+  Speed_Idle: 10
+  Speed_FollowPlayer: 50
+  TimeBetweenAction_FollowPlayer: 0.1
+  MovementWeight_FollowPlayer: 1
+  Speed_Escape: 0
+  TimeBetweenAction_Escape: 0
+  MovementWeight_Escape: 0
+  Speed_Attack: 10
+  TimeBetweenAction_Attack: 0.3
+  NeighborRadius: 50
+  AvoidanceRadius: 30
+  MovementWeight_Avoidance: 0.5
+  MovementWeight_Aligment: 0
+  MovementWeight_Cohesion: 0

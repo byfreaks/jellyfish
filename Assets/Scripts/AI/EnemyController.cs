@@ -18,56 +18,38 @@ public class EnemyController : MonoBehaviour
 
     #region Entities Related
     public Enemy enemyData; //[VALUE DEFINED FROM EDITOR]
+    [HideInInspector] public EnemyBrain enemyBrain;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public BoxCollider2D bc;
     private SpriteRenderer sr;
     private HealthComponent hc;
-    public Animator an;
+    [HideInInspector] public Animator an;
     #endregion
 
     #region AI Properties
-    public Vector2 CurrentDirection = Vector2.zero;
-    public float Speed;
-    public float CurrentSpeed;
-    public float TimeBetweenActions;
+    [HideInInspector] public Vector2 CurrentDirection = Vector2.zero;
+    [HideInInspector] public float Speed;
+    [HideInInspector] public float CurrentSpeed;
+    [HideInInspector] public float TimeBetweenActions;
     private float timeSinceLastAction;
-    private EnemyBehaviour currentBehaviour;
-    private float testTimeBetweenBehaviours = 0;
+    [HideInInspector] public EnemyBehaviour currentBehaviour;
     #endregion
 
     #region AI Methods
     public void ChangeBehaviour(EnemyBehaviours newBehaviour)
     {
-        while (true)
-        {
-            if(newBehaviour == EnemyBehaviours.Idle && enemyData.hasIdleBehaviour) 
-            {
-                currentBehaviour = new Idle();
-                break;
-            }
-            else if(newBehaviour == EnemyBehaviours.FollowPlayer && enemyData.hasFollowPlayerBehaviour) 
-            {
-                currentBehaviour = new FollowPlayer();
-                break;
-            }
-            else if(newBehaviour == EnemyBehaviours.Attack && enemyData.hasAttackBehaviour) 
-            {
-                currentBehaviour = new Attack();
-                break;
-            }
-            else if(newBehaviour == EnemyBehaviours.Escape && enemyData.hasEscapeBehaviour)
-            {
-                currentBehaviour = new Escape();
-                break;
-            } 
-            else
-            {
-                newBehaviour += 1;
-                if(newBehaviour > EnemyBehaviours.Escape) newBehaviour = 0;
-            }
-        }
-        Debug.Log(currentBehaviour.type);
+        //[DEBUG]
+        if(currentBehaviour !=null) Debug.Log("Old behaviour:" + currentBehaviour.type);
+        //
+        if(newBehaviour == EnemyBehaviours.Idle) currentBehaviour = new Idle();
+        if(newBehaviour == EnemyBehaviours.FollowPlayer) currentBehaviour = new FollowPlayer();
+        if(newBehaviour == EnemyBehaviours.Attack) currentBehaviour = new Attack();
+        if(newBehaviour == EnemyBehaviours.Escape) currentBehaviour = new Escape();
         currentBehaviour.Init(this);
+        timeSinceLastAction = 0;
+        //[DEBUG]
+        Debug.Log("New behaviour:" + currentBehaviour.type);
+        //
     }
     public void UpdateVelocity()
     {
@@ -84,6 +66,10 @@ public class EnemyController : MonoBehaviour
         //Sprite point to right or left
         sr.flipX = (CurrentDirection.x > 0);
     }
+    /*public IEnumerator DelayBehaviourTransition(float seconds)
+    {
+
+    }*/
     #endregion
 
     #region Unity Engine Loop
@@ -104,23 +90,14 @@ public class EnemyController : MonoBehaviour
         an = gameObject.AddComponent<Animator>();
         an.runtimeAnimatorController = enemyData.animatorController;
 
-        ChangeBehaviour(EnemyBehaviours.FollowPlayer);
+        enemyBrain = enemyData.enemyBrain;
+        ChangeBehaviour(EnemyBehaviours.Idle);
     }
     void Update()
     {
         timeSinceLastAction += Time.deltaTime;
-        
-        //[DEBUG] Change Behaviours each 10 seconds for testing
-        testTimeBetweenBehaviours += Time.deltaTime;
-        if(testTimeBetweenBehaviours > 5f)   
-        {
-            ChangeBehaviour(currentBehaviour.type+1);
-            testTimeBetweenBehaviours = 0;
-            timeSinceLastAction = 0;
-        }
-
         /* BEHAVIOUR ACTIONS */
-        if(TimeBetweenActions != -1 && timeSinceLastAction > TimeBetweenActions)
+        if(timeSinceLastAction > TimeBetweenActions)
         {
             timeSinceLastAction = 0;
             currentBehaviour.BehaviorAction(this);
@@ -130,6 +107,7 @@ public class EnemyController : MonoBehaviour
 
         UpdateVelocity();
         UpdateSpriteDirection();
+        enemyBrain.CheckConditionsForNewBehaviours(this);
     }
     #endregion
 }

@@ -16,9 +16,7 @@ public class Attack : EnemyBehaviour
     {
         if(Hitbox == null)
         {
-            Vector3 offsetPosition = Vector3.left * 10;
-            if(ec.CurrentDirection.x > 0) offsetPosition *= -1;
-
+            Vector3 offsetPosition = (Vector3) ec.enemyData.HitboxOffset;
             Hitbox = GameObject.Instantiate(
                 ec.enemyData.Hitbox, 
                 ec.transform.position + offsetPosition,
@@ -29,7 +27,7 @@ public class Attack : EnemyBehaviour
         else
         {
             GameObject.Destroy(Hitbox);
-            ec.ChangeBehaviour(EnemyBehaviours.Escape);
+            ec.enemyBrain.EndBehaviour(ec);
         }
     }
 }
