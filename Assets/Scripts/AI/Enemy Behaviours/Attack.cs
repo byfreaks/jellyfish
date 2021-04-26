@@ -10,7 +10,8 @@ public class Attack : EnemyBehaviour
     {
         ec.Speed = ec.enemyData.Speed_Attack;
         ec.TimeBetweenActions = ec.enemyData.TimeBetweenAction_Attack;
-        ec.an.Play("Attack");
+        if(ec.enemyData.hasAttackAnimation) 
+            ec.an.Play("Attack");
     }
     public override void BehaviorAction(EnemyController ec)
     {

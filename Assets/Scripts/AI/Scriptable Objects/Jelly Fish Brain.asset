@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Jelly Fish Brain
   m_EditorClassIdentifier: 
   distanceToAttackPlayer: 20
-  distanceToStartChasingPlayer: 30
+  distanceToStartChasingPlayer: 40
   distanceToEndChasingPlayer: 200

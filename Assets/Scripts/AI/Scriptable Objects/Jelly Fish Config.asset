@@ -19,7 +19,10 @@ MonoBehaviour:
   sprite: {fileID: 1965404493759735644, guid: 4cd8a430232eea647a1f44304594d5ae, type: 3}
   animatorController: {fileID: 9100000, guid: 86bbf5ddf5ea5cb4aa17622ef7c5b1fb, type: 2}
   material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
-  Speed_Idle: 10
+  hasAttackAnimation: 0
+  Speed_Default: 50
+  TimeBetweenAction_Default: 0.5
+  MovementWeight_Default: 1
   Speed_FollowPlayer: 50
   TimeBetweenAction_FollowPlayer: 0.1
   MovementWeight_FollowPlayer: 1

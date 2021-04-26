@@ -8,5 +8,6 @@ public enum EnemyBehaviours
     Idle,
     FollowPlayer,
     Attack,
-    Escape
+    Escape,
+    MoveToPoint
 }

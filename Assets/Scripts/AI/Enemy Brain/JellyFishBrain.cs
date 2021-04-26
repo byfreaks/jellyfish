@@ -15,6 +15,8 @@ public class JellyFishBrain : EnemyBrain
         float squareDistanceToStartChasing = distanceToStartChasingPlayer * distanceToStartChasingPlayer;
         float squareDistanceToEndChasing = distanceToEndChasingPlayer * distanceToEndChasingPlayer;
         float squareDistanceToAttack = distanceToAttackPlayer * distanceToAttackPlayer;
+        float squareDistancePointToHold = (ec.InitPoint - (Vector2) ec.transform.position).sqrMagnitude;
+        float squareRangeToHoldPoint = 10f * 10f;
         
         //Idle:
         //  * Player too close -> FollowPlayer
@@ -26,11 +28,18 @@ public class JellyFishBrain : EnemyBrain
         //FollowPlayer:
         //  * Player too close -> Attack
         //  * Player too far -> MoveToPoint
-        if(ec.currentBehaviour.type == EnemyBehaviours.FollowPlayer)
+        else if(ec.currentBehaviour.type == EnemyBehaviours.FollowPlayer)
         {
             if(squareDistanceToPlayer < squareDistanceToAttack)
                 EndBehaviour(ec, EnemyBehaviours.Attack);
             else if(squareDistanceToPlayer > squareDistanceToEndChasing)
+                EndBehaviour(ec, EnemyBehaviours.MoveToPoint);
+        }
+        //MoveToPoint:
+        //  * Point too close -> Idle
+        else if(ec.currentBehaviour.type == EnemyBehaviours.MoveToPoint)
+        {
+            if(squareDistancePointToHold < squareRangeToHoldPoint)
                 EndBehaviour(ec, EnemyBehaviours.Idle);
         }
     }

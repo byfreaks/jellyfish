@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public float TimeBetweenActions;
     private float timeSinceLastAction;
     [HideInInspector] public EnemyBehaviour currentBehaviour;
+    [HideInInspector] public Vector2 InitPoint;
     #endregion
 
     #region AI Methods
@@ -45,6 +46,7 @@ public class EnemyController : MonoBehaviour
         if(newBehaviour == EnemyBehaviours.FollowPlayer) currentBehaviour = new FollowPlayer();
         if(newBehaviour == EnemyBehaviours.Attack) currentBehaviour = new Attack();
         if(newBehaviour == EnemyBehaviours.Escape) currentBehaviour = new Escape();
+        if(newBehaviour == EnemyBehaviours.MoveToPoint) currentBehaviour = new MoveToPoint();
         currentBehaviour.Init(this);
         timeSinceLastAction = 0;
         //[DEBUG]
@@ -66,10 +68,6 @@ public class EnemyController : MonoBehaviour
         //Sprite point to right or left
         sr.flipX = (CurrentDirection.x > 0);
     }
-    /*public IEnumerator DelayBehaviourTransition(float seconds)
-    {
-
-    }*/
     #endregion
 
     #region Unity Engine Loop
@@ -90,6 +88,7 @@ public class EnemyController : MonoBehaviour
         an = gameObject.AddComponent<Animator>();
         an.runtimeAnimatorController = enemyData.animatorController;
 
+        InitPoint = (Vector2) transform.position;
         enemyBrain = enemyData.enemyBrain;
         ChangeBehaviour(EnemyBehaviours.Idle);
     }
