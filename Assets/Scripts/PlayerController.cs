@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
 
     HpPanelScript hpPanel;
     OxyPanelScript oxyPanel;
+    IconsPanelScript iconsPanel;
 
     //Inventory
     public InventoryManager inventoryManager;
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
         hpPanel.SetHealth(hc.currentHealth);
 
         oxyPanel = GameObject.Find("OxygenPanel").GetComponent<OxyPanelScript>();
+        iconsPanel = GameObject.Find("IconsPanel").GetComponent<IconsPanelScript>();
 
         SetupNextBubbleEmit();
         
@@ -205,14 +207,21 @@ public class PlayerController : MonoBehaviour
 
     void OrganizeInventory(){
         //direct
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-            SelectTool(torch);
-
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-            SelectTool(harpoonGun);
         
-        if(Input.GetKeyDown(KeyCode.Alpha3))
+        if(Input.GetKeyDown(KeyCode.Alpha1)){
+            SelectTool(harpoonGun);
+            iconsPanel.SetUsing(1);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)){
             ConsumeOxytank();
+            iconsPanel.SetUsing(2);
+            if(currentOxygen > maxOxygen)
+                currentOxygen = maxOxygen;
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha3)){
+            SelectTool(torch);
+            iconsPanel.SetUsing(3);
+        }
     }
 
     void ConsumeOxytank(){
