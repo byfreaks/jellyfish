@@ -17,6 +17,7 @@ public class InventoryManager : MonoBehaviour
     public List<GameObject> currentItems = new List<GameObject>();
     public List<GameObject> availibleItems = new List<GameObject>();
     public List<GameObject> draggableItems = new List<GameObject>();
+    public List<GameObject> pickableItems = new List<GameObject>();
 
     void Start()
     {   
@@ -57,21 +58,24 @@ public class InventoryManager : MonoBehaviour
     }
 
     public void DrawAvailableItems(){
-        foreach (var item in availibleItems)
+        foreach (var item in pickableItems)
         {
-            Vector2 itemPosition = new Vector2(safeBound, Random.Range(inventoryPanel.GetComponent<RectTransform>().rect.yMin + 100, inventoryPanel.GetComponent<RectTransform>().rect.yMax - 100));
-            GameObject availibleItem = Instantiate(item.GetComponent<DroppedItem>().item.inventoryItem, itemPosition, Quaternion.identity) as GameObject;
-            availibleItem.transform.SetParent(inventoryPanel.transform, false); 
-            availibleItem.GetComponent<DragElement>().SetElementData(item.GetComponent<DroppedItem>().item, item);
-            availibleItem.GetComponent<DragElement>().invManager = this;
-            availibleItem.GetComponent<DragElement>().canvas = canvas;
-            draggableItems.Add(availibleItem);
+            if(item != null){
+                Vector2 itemPosition = new Vector2(safeBound, Random.Range(inventoryPanel.GetComponent<RectTransform>().rect.yMin + 100, inventoryPanel.GetComponent<RectTransform>().rect.yMax - 100));
+                GameObject availibleItem = Instantiate(item.GetComponent<DroppedItem>().item.inventoryItem, itemPosition, Quaternion.identity) as GameObject;
+                availibleItem.transform.SetParent(inventoryPanel.transform, false); 
+                availibleItem.GetComponent<DragElement>().SetElementData(item.GetComponent<DroppedItem>().item, item);
+                availibleItem.GetComponent<DragElement>().invManager = this;
+                availibleItem.GetComponent<DragElement>().canvas = canvas;
+                availibleItems.Add(availibleItem);
+                draggableItems.Add(availibleItem);
+            }
         }
     }
 
     public void SetInventoryItem(GameObject item){
         currentItems.Add(item);
-        draggableItems.Add(item);
+        availibleItems.Remove(item);
     }
 
     public void RemoveInventoryItem(GameObject item){
@@ -85,35 +89,43 @@ public class InventoryManager : MonoBehaviour
         }
 
         if(toAdd){
+            availibleItems.Add(item);
             currentItems.Remove(item);
-            draggableItems.Remove(item);
             Vector2 worldItemPosition = new Vector2(player.transform.position.x, player.transform.position.y);
             item.GetComponent<DragElement>().worldReference = Instantiate(item.GetComponent<DragElement>().data.droppable, worldItemPosition, Quaternion.identity) as GameObject;
-            availibleItems.Add(item);
         }
     }
 
     public void SetAvailableItems(List<GameObject> items){
-        if(draggableItems.Count == 0 && currentItems.Count >= 0 && items.Count == 0){
-            foreach (var item in availibleItems)
-            {
-                Destroy(item);
-            }
-        }
+        foreach (var draggable in draggableItems)
+        {   
+            if(draggable != null){
+                bool delete = true;
+                foreach (var current in currentItems)
+                {
+                    if(current == draggable){
+                        delete = false;
+                    }
+                }
 
-        foreach (var item in draggableItems)
-        {
-            if(checkDestroy(item)){
-                Destroy(item);
+                if(delete){
+                    Destroy(draggable);
+                }
             }
         }
 
         availibleItems.Clear();
         draggableItems.Clear();
+        pickableItems.Clear();
+
+        foreach (var item in currentItems)
+        {
+            draggableItems.Add(item);
+        }
 
         foreach (var item in items)
         {
-            availibleItems.Add(item);
+            pickableItems.Add(item);
         }
 
         DrawAvailableItems();

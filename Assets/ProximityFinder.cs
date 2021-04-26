@@ -8,7 +8,6 @@ public class ProximityFinder : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.transform.name.Contains("Pickable")){
-            Debug.Log("Found!");
             nearPickables.Add(other.gameObject);
         }
     }
