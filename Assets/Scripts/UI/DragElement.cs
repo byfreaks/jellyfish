@@ -41,6 +41,8 @@ public class DragElement : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
         Vector2 anchoredPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), eventData.pointerCurrentRaycast.screenPosition, null, out anchoredPos);
 
+        Debug.Log(anchoredPos);
+
         if(!dropped){
             foreach (var cell in invManager.cells)
             {   

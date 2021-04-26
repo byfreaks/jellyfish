@@ -47,9 +47,12 @@ public class InventoryManager : MonoBehaviour
                 Vector2 cellPosition = new Vector2(x, y);
                 GameObject cell = Instantiate(cellPrefab, cellPosition, Quaternion.identity) as GameObject;
                 cell.transform.SetParent(inventoryPanel.transform, false);
+                cell.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 32);
+                cell.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 32);
                 cell.GetComponent<DropElement>().SetCellCoordinates(cellPosition);
                 cells.Add(cell);
-                x -= cellPrefab.GetComponent<RectTransform>().sizeDelta.x + gap;      
+                x -= cellPrefab.GetComponent<RectTransform>().sizeDelta.x + gap;
+
             }
             safeBound = x;
             y -= cellPrefab.GetComponent<RectTransform>().sizeDelta.y + gap;
@@ -60,10 +63,13 @@ public class InventoryManager : MonoBehaviour
     public void DrawAvailableItems(){
         foreach (var item in pickableItems)
         {
+
             if(item != null){
                 Vector2 itemPosition = new Vector2(safeBound, Random.Range(inventoryPanel.GetComponent<RectTransform>().rect.yMin + 100, inventoryPanel.GetComponent<RectTransform>().rect.yMax - 100));
                 GameObject availibleItem = Instantiate(item.GetComponent<DroppedItem>().item.inventoryItem, itemPosition, Quaternion.identity) as GameObject;
-                availibleItem.transform.SetParent(inventoryPanel.transform, false); 
+                availibleItem.transform.SetParent(inventoryPanel.transform, false);
+                availibleItem.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 32);
+                availibleItem.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 32);
                 availibleItem.GetComponent<DragElement>().SetElementData(item.GetComponent<DroppedItem>().item, item);
                 availibleItem.GetComponent<DragElement>().invManager = this;
                 availibleItem.GetComponent<DragElement>().canvas = canvas;
@@ -115,6 +121,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         availibleItems.Clear();
+        // Debug.Log(draggableItems.Count);
         draggableItems.Clear();
         pickableItems.Clear();
 
