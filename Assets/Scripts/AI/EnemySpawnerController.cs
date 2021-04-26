@@ -45,7 +45,10 @@ public class EnemySpawnerController : MonoBehaviour
             return;
         
         //Spawn
-        GameObject newEnemy = Instantiate(spawnerData.EnemyPrefab, transform.position, Quaternion.identity);
+        float xOffset = Random.Range(-spawnerData.randomOffsetRange.x, spawnerData.randomOffsetRange.x);
+        float yOffset = Random.Range(-spawnerData.randomOffsetRange.y, spawnerData.randomOffsetRange.y);
+        Vector3 newPosition = transform.position + new Vector3(xOffset, yOffset,0);
+        GameObject newEnemy = Instantiate(spawnerData.EnemyPrefab, newPosition, Quaternion.identity);
 
         //[PERFORMANCE] If spawner is unlimited it is not necessary save entities references
         if(spawnerData.spawnerSize != 0) enemies.Add(newEnemy);
