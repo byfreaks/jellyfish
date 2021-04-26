@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DroppedItem : MonoBehaviour
 {
-    [SerializeField] ResourceData item;
+    [SerializeField] public ResourceData item;
 
     Vector2 anchorPosition;
     [SerializeField] float factor;
