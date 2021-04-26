@@ -8,7 +8,7 @@ public class BubbleEmitter : MonoBehaviour
     [SerializeField] GameObject bubblePrefab;
     [SerializeField] List<Sprite> bubbleSprites;
 
-    private float rnd => Random.Range(-0.6f,0.6f);
+    private float rnd => Random.Range(-1.2f,1.2f);
     private float rndSpd => Random.Range(-20f,0f);
 
     public void Emit(int amount, float speed, Vector2 direction){
@@ -17,7 +17,7 @@ public class BubbleEmitter : MonoBehaviour
         {
             var b = Instantiate(bubblePrefab, this.transform.position, Quaternion.identity);
             var bc = b.GetComponent<BubbleBehaviour>();
-            bc.Initialize( new Vector2(direction.x + rnd, direction.y + rnd).normalized, speed * rndSpd, bubbleSprites[Random.Range(0,2)]);
+            bc.Initialize( new Vector2(direction.x + rnd, direction.y + rnd).normalized, speed * rndSpd, bubbleSprites[Random.Range(0,bubbleSprites.Count - 1)]);
             
         }
     }

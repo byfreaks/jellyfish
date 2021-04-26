@@ -43,13 +43,13 @@ public class PlayerController : MonoBehaviour
     //Tools
     [Header("TOOLS")]
     [SerializeField] GameObject equippedTool;
+    [SerializeField] GameObject torch, harpoonGun;
 
     //Inventory
     public InventoryManager inventoryManager;
     private bool openInventory = false;
     
     int selectedItem;
-    [SerializeField] GameObject torch, harpoonGun;
 
     struct status{
         public bool canMove;
@@ -271,4 +271,5 @@ public class PlayerController : MonoBehaviour
             controller.Move( (inputDirection * freeRoamSpeed) * Time.deltaTime );
     }
     #endregion
+    
 }

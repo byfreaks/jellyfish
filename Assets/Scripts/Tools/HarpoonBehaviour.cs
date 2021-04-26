@@ -12,11 +12,13 @@ public class HarpoonBehaviour : MonoBehaviour
 
     [SerializeField] float missileStrenght;
     [SerializeField] float missileDistance;
+    PlayerController pc;
 
     Animator an;
 
     private void Start() {
         an = this.gameObject.GetComponent<Animator>();
+        pc = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     void Update()
@@ -37,6 +39,9 @@ public class HarpoonBehaviour : MonoBehaviour
 
     void Shoot()
     {
+
+        
+
         if(currentCooldown <= 0){
             currentCooldown = cooldown;
             var missile = Instantiate(harpoonMissile, fire.transform.position, Quaternion.identity).GetComponent<MissileComponent>();
