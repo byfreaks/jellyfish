@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15d8c417846b08f44aa607b0e4c173a7, type: 3}
-  m_Name: Fish 0 Enemy
+  m_Name: Fish 0 Config
   m_EditorClassIdentifier: 
   MaxHealth: 5
   Hitbox: {fileID: 0}
-  hasIdleBehaviour: 1
-  hasAttackBehaviour: 0
-  hasFollowPlayerBehaviour: 1
-  hasEscapeBehaviour: 1
+  HitboxOffset: {x: 0, y: 0}
+  enemyBrain: {fileID: 11400000, guid: 2ab05680585636c4b8fdfb5d385b6286, type: 2}
   sprite: {fileID: -1915776564401465818, guid: 017814aded42f1544a36c488278771d6, type: 3}
   animatorController: {fileID: 9100000, guid: 0cab2d474d4fb964c8b9641d82ba0269, type: 2}
   material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
-  Speed_Idle: 20
+  hasAttackAnimation: 0
+  Speed_Default: 50
+  TimeBetweenAction_Default: 0.5
+  MovementWeight_Default: 1
   Speed_FollowPlayer: 50
   TimeBetweenAction_FollowPlayer: 0.1
   MovementWeight_FollowPlayer: 1
@@ -30,8 +31,8 @@ MonoBehaviour:
   MovementWeight_Escape: 1
   Speed_Attack: 20
   TimeBetweenAction_Attack: 2.5
-  NeighborRadius: 20
+  NeighborRadius: 50
   AvoidanceRadius: 15
-  MovementWeight_Avoidance: 2
+  MovementWeight_Avoidance: 1
   MovementWeight_Aligment: 1
   MovementWeight_Cohesion: 0.5

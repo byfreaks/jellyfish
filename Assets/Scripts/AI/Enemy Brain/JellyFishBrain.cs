@@ -37,10 +37,13 @@ public class JellyFishBrain : EnemyBrain
         }
         //MoveToPoint:
         //  * Point too close -> Idle
+        //  * Player too close -> FollowPlayer
         else if(ec.currentBehaviour.type == EnemyBehaviours.MoveToPoint)
         {
             if(squareDistancePointToHold < squareRangeToHoldPoint)
                 EndBehaviour(ec, EnemyBehaviours.Idle);
+            else if(squareDistanceToPlayer < squareDistanceToStartChasing)
+                EndBehaviour(ec, EnemyBehaviours.FollowPlayer);
         }
     }
 

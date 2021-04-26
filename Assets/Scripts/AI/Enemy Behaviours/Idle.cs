@@ -12,6 +12,6 @@ public class Idle : EnemyBehaviour
     }
     public override void BehaviorAction(EnemyController ec)
     {
-        ec.CurrentDirection = Vector2.zero;
+        ec.CurrentDirection = new Vector2(Random.Range(-20f,20f),Random.Range(-10f,10f));
     }
 }

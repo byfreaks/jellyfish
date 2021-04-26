@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 5
   Hitbox: {fileID: 0}
-  hasIdleBehaviour: 1
-  hasAttackBehaviour: 0
-  hasFollowPlayerBehaviour: 1
-  hasEscapeBehaviour: 1
+  HitboxOffset: {x: 0, y: 0}
+  enemyBrain: {fileID: 11400000, guid: 2ab05680585636c4b8fdfb5d385b6286, type: 2}
   sprite: {fileID: 796711228765307661, guid: e64d20841481cd64a971f7767d70ee0a, type: 3}
   animatorController: {fileID: 9100000, guid: 594c38be1dcfbca41b494d25bc9c7e3d, type: 2}
   material: {fileID: 2100000, guid: d3cabe36ed1e33a469d302fb6b76be19, type: 2}
-  Speed_Idle: 20
+  hasAttackAnimation: 0
+  Speed_Default: 50
+  TimeBetweenAction_Default: 0.5
+  MovementWeight_Default: 1
   Speed_FollowPlayer: 55
   TimeBetweenAction_FollowPlayer: 0.1
   MovementWeight_FollowPlayer: 1
