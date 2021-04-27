@@ -101,8 +101,8 @@ public class PlayerController : MonoBehaviour
         controller = this.gameObject.GetComponent<Controller2D>();
         be = gameObject.GetComponent<BubbleEmitter>();
 
-        // hpPanel = GameObject.Find("HP panel").GetComponent<HpPanelScript>();
-        // hpPanel.SetHealth(hc.currentHealth);
+        hpPanel = GameObject.Find("HP panel").GetComponent<HpPanelScript>();
+        hpPanel.SetHealth(hc.currentHealth);
 
         oxyPanel = GameObject.Find("OxygenPanel").GetComponent<OxyPanelScript>();
         iconsPanel = GameObject.Find("IconsPanel").GetComponent<IconsPanelScript>();
@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //update oxygen panel
-        //oxyPanel.UpdateOxygenBar(currentOxygen / maxOxygen);
+        oxyPanel.UpdateOxygenBar(currentOxygen / maxOxygen);
     }
 
     void OrganizeInventory(){
