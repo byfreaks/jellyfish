@@ -20,6 +20,7 @@ public class EnemyHitboxController : MonoBehaviour
         if(other.gameObject.name == "Player"){
             HealthComponent hc = other.gameObject.GetComponent<HealthComponent>();
             hc.Hurt();
+            SFXHelper.PlayEffect(SFXs.ReceiveDamage);
         }
     }
 

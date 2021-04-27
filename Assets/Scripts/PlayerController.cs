@@ -142,6 +142,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ResetPlayerAfterSeconds(float seconds){
         yield return new WaitForSecondsRealtime(seconds);
+        coroutine = null;
         Respawn();
     }
 
@@ -151,6 +152,29 @@ public class PlayerController : MonoBehaviour
         an.Play("player_swim_down");
         this.transform.position = new Vector3(-23, -44, 0);
         GameObject.Find("PIxel Perfect Camera").GetComponent<CameraScript>().ResetClamp(1);
+    }
+
+    public int CountItems(string name){
+        int it = 0;
+        foreach (var item in inventoryManager.currentItems)
+        {
+            if (item.name.Contains(name)) it++;
+        }
+        return it;
+    }
+
+    public void DeleteHarpoon(){
+        var found = inventoryManager.currentItems.Find(h => h.name.Contains("Missile"));
+        if(found) inventoryManager.currentItems.Remove(found);
+    }
+
+     public void DeleteOxytank(){
+        var found = inventoryManager.currentItems.Find(h => h.name.Contains("Oxygen"));
+        if(found) inventoryManager.currentItems.Remove(found);
+    }
+
+    public void SetMaxOxygen(int val){
+        maxOxygen = val;
     }
 
     void Update()
@@ -170,6 +194,7 @@ public class PlayerController : MonoBehaviour
         if(hc.isDead){
             st.Dead();
             an.Play("player_death");
+            SFXHelper.PlayEffect(SFXs.Death);
             if(coroutine == null)
                 coroutine = StartCoroutine( ResetPlayerAfterSeconds(secondsToRespawn) );
         }
@@ -216,7 +241,7 @@ public class PlayerController : MonoBehaviour
             SelectTool(harpoonGun);
             iconsPanel.SetUsing(1);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha2)){
+        if(Input.GetKeyDown(KeyCode.Alpha2) && CountItems("Oxygen") > 0){
             ConsumeOxytank();
             iconsPanel.SetUsing(2);
             if(currentOxygen > maxOxygen)

@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     {
         //Initialize tools
         ToolHelper.Init(toolHelperData);
+        SFXHelper.Init(GameObject.Find("PIxel Perfect Camera").GetComponent<SFXManager>());
         inventoryManager.inventoryPanel.gameObject.SetActive(openInventory);
         
         foreach(GameObject go in ToDelete){
