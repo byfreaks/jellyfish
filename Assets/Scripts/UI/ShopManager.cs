@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShopManager : MonoBehaviour
 {
     public ShopManager current;
+    public PlayerController player;
     public InventoryManager inventoryManager;
     public ShopData referenceI3X3;
     public ShopData referenceI3X4;
@@ -25,9 +26,8 @@ public class ShopManager : MonoBehaviour
         {
             case ShopUpgradeInventoryTypeHelper.oxygen:
                 if(current.validateBuy(referenceOxygen)){
-                    Debug.Log("COMPRA DE INVENTARIO");
-                }else{
-                    Debug.Log("COMPRA DE INVENTARIO FALLIDA (FALTA DE RECURSOS)");
+                    player.SetMaxOxygen(60);
+                    current.confirmBuy(referenceOxygen);
                 }
                 break;
             case ShopUpgradeInventoryTypeHelper.harpoon:
@@ -77,4 +77,28 @@ public class ShopManager : MonoBehaviour
             return false;
         }
     }
+
+    public void DeleteItem(string name){
+        var found = inventoryManager.currentItems.Find(h => h.name.Contains(name));
+        if(found) inventoryManager.currentItems.Remove(found);
+    }
+
+    public void confirmBuy(ShopData reference){
+        for (int i = 0; i < reference.copperOre; i++)
+        {
+            DeleteItem("CopperOre");
+        }
+
+        for (int i = 0; i < reference.silicon; i++)
+        {
+            DeleteItem("Silicon");
+        }
+
+        for (int i = 0; i < reference.fiber; i++)
+        {
+            DeleteItem("Algae");
+        }
+        inventoryManager.SetShopInventory();
+    }
+
 }

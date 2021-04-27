@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
         if(found) inventoryManager.currentItems.Remove(found);
     }
 
-     public void DeleteOxytank(){
+    public void DeleteOxytank(){
         var found = inventoryManager.currentItems.Find(h => h.name.Contains("Oxygen"));
         if(found) inventoryManager.currentItems.Remove(found);
     }
