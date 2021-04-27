@@ -138,6 +138,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ResetPlayerAfterSeconds(float seconds){
         yield return new WaitForSecondsRealtime(seconds);
+        coroutine = null;
         Respawn();
     }
 
