@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a831b3b9d28b45844b4fcad855a5cf80, type: 3}
   m_Name: Fish Brain
   m_EditorClassIdentifier: 
-  distanceToDetectPlayer: 150
+  distanceToDetectPlayer: 60
   distanceToEscapeFromPlayer: 300
