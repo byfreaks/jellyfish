@@ -19,6 +19,12 @@ public class InventoryManager : MonoBehaviour
     public List<GameObject> draggableItems = new List<GameObject>();
     public List<GameObject> pickableItems = new List<GameObject>();
 
+    public GameObject copperOreImage;
+    public GameObject siliconImage;
+    public GameObject fiberImage;
+    public GameObject harpoonImage;
+    public GameObject oxyImage;
+
     void Start()
     {   
         currentItems.Clear();
@@ -121,7 +127,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         availibleItems.Clear();
-        // Debug.Log(draggableItems.Count);
         draggableItems.Clear();
         pickableItems.Clear();
 
@@ -146,5 +151,43 @@ public class InventoryManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void SetShopInventory(){
+        List<GameObject> currentCopperOre = new List<GameObject>();
+        List<GameObject> currentSilicon = new List<GameObject>();
+        List<GameObject> currentFiber = new List<GameObject>();
+        List<GameObject> currentOxygen = new List<GameObject>();
+        List<GameObject> currentHarpoon = new List<GameObject>();
+
+        foreach (var item in currentItems)
+        {
+            Debug.Log(item);
+            switch (item.name)
+            {
+                case "AlgaeDragElement(Clone)":
+                    currentFiber.Add(item);
+                    break;
+                case "SiliconDragElement(Clone)":
+                    currentSilicon.Add(item);
+                    break;
+                case "CopperOreDragElement(Clone)":
+                    currentCopperOre.Add(item);
+                    break;
+                case "OxygenDragElement(Clone)":
+                    currentOxygen.Add(item);
+                    break;
+                case "HarpoonMissileDragElement(Clone)":
+                    currentHarpoon.Add(item);
+                    break;
+            }
+            
+        }
+
+        copperOreImage.GetComponent<TooltipTrigger>().message = "CP: " + currentCopperOre.Count.ToString();
+        siliconImage.GetComponent<TooltipTrigger>().message = "SC: " + currentSilicon.Count.ToString();
+        fiberImage.GetComponent<TooltipTrigger>().message = "FB: " + currentFiber.Count.ToString();
+        harpoonImage.GetComponent<TooltipTrigger>().message = "Harpoons: " + currentHarpoon.Count.ToString();
+        oxyImage.GetComponent<TooltipTrigger>().message = "Oxygen tanks: " + currentOxygen.Count.ToString();
     }
 }

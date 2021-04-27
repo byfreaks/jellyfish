@@ -11,10 +11,4 @@ public class ShoppingAreaBehaviour : MonoBehaviour
             player.RestoreOxygen();
         }   
     }
-
-    private void OnTriggerExit2D(Collider2D other) {
-        if(other.gameObject.name.Contains("Player")){
-            other.GetComponent<PlayerController>().ShoppingMenu(false);
-        }   
-    }
 }
