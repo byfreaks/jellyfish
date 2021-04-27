@@ -61,6 +61,11 @@ public class ResourceController : MonoBehaviour
         }
 
         if(hc.isDead){
+            if(this.gameObject.name.Contains("Copper") || this.gameObject.name.Contains("Silicon"))
+                SFXHelper.PlayEffect(SFXs.BreakRock);
+            if(this.gameObject.name.Contains("Algae"))
+                SFXHelper.PlayEffect(SFXs.BreakAlgae);
+
             var drops = Random.Range(minAmount, maxAmount);
             for (int i = 0; i < drops; i++)
             {
