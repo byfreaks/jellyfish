@@ -10,6 +10,12 @@ public class ShopManager : MonoBehaviour
     public ShopData referenceI3X4;
     public ShopData referenceI4X4;
     public ShopData referenceI5X5;
+
+    public ShopData referenceOxygen;
+
+    public ShopData referenceTanks;
+
+    public ShopData referenceHarpoon;
     private void Awake() {
         current = this;
     }
@@ -17,21 +23,26 @@ public class ShopManager : MonoBehaviour
     public void BuyInventoryUpgrade(ShopUpgradeInventoryTypeHelper type){
         switch (type)
         {
-            case ShopUpgradeInventoryTypeHelper.i3x3:
-                if(current.validateBuy(referenceI3X3)){
+            case ShopUpgradeInventoryTypeHelper.oxygen:
+                if(current.validateBuy(referenceOxygen)){
                     Debug.Log("COMPRA DE INVENTARIO");
                 }else{
                     Debug.Log("COMPRA DE INVENTARIO FALLIDA (FALTA DE RECURSOS)");
                 }
                 break;
-            case ShopUpgradeInventoryTypeHelper.i3x4:
-                current.validateBuy(referenceI3X4);
+            case ShopUpgradeInventoryTypeHelper.harpoon:
+                if(current.validateBuy(referenceHarpoon)){
+                    Debug.Log("COMPRA DE INVENTARIO");
+                }else{
+                    Debug.Log("COMPRA DE INVENTARIO FALLIDA (FALTA DE RECURSOS)");
+                }
                 break;
-            case ShopUpgradeInventoryTypeHelper.i4x4:
-                current.validateBuy(referenceI4X4);
-                break;
-            case ShopUpgradeInventoryTypeHelper.i5x5:
-                current.validateBuy(referenceI5X5);
+            case ShopUpgradeInventoryTypeHelper.tanks:
+                if(current.validateBuy(referenceTanks)){
+                    Debug.Log("COMPRA DE INVENTARIO");
+                }else{
+                    Debug.Log("COMPRA DE INVENTARIO FALLIDA (FALTA DE RECURSOS)");
+                }
                 break;
         }
     }
@@ -47,13 +58,13 @@ public class ShopManager : MonoBehaviour
         {
             switch (item.name)
             {
-                case "AlgaeDragElement":
+                case "AlgaeDragElement(Clone)":
                     currentFiber.Add(item);
                     break;
-                case "SiliconDragElement":
+                case "SiliconDragElement(Clone)":
                     currentSilicon.Add(item);
                     break;
-                case "CopperOreDragElement":
+                case "CopperOreDragElement(Clone)":
                     currentCopperOre.Add(item);
                     break;
             }

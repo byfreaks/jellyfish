@@ -55,6 +55,9 @@ public class PlayerController : MonoBehaviour
     //Inventory
     public InventoryManager inventoryManager;
     public GameObject shopPanel;
+    public GameObject itemsPanel;
+    public GameObject oxigenPanel;
+    public GameObject healthPanel;
     public bool openInventory = false;
 
     //bubbles
@@ -98,8 +101,8 @@ public class PlayerController : MonoBehaviour
         controller = this.gameObject.GetComponent<Controller2D>();
         be = gameObject.GetComponent<BubbleEmitter>();
 
-        hpPanel = GameObject.Find("HP panel").GetComponent<HpPanelScript>();
-        hpPanel.SetHealth(hc.currentHealth);
+        // hpPanel = GameObject.Find("HP panel").GetComponent<HpPanelScript>();
+        // hpPanel.SetHealth(hc.currentHealth);
 
         oxyPanel = GameObject.Find("OxygenPanel").GetComponent<OxyPanelScript>();
         iconsPanel = GameObject.Find("IconsPanel").GetComponent<IconsPanelScript>();
@@ -203,7 +206,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //update oxygen panel
-        oxyPanel.UpdateOxygenBar(currentOxygen / maxOxygen);
+        //oxyPanel.UpdateOxygenBar(currentOxygen / maxOxygen);
     }
 
     void OrganizeInventory(){
@@ -346,12 +349,20 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     public void ShoppingMenu(bool open){
+        inventoryManager.SetShopInventory();
+        
         if(Time.timeScale == 1.0f){
             Time.timeScale = 0;
             shopPanel.gameObject.SetActive(open);
+            itemsPanel.gameObject.SetActive(!open);
+            oxigenPanel.gameObject.SetActive(!open);
+            healthPanel.gameObject.SetActive(!open);
         }else{
             Time.timeScale = 1.0F;
             shopPanel.gameObject.SetActive(open);
+            itemsPanel.gameObject.SetActive(!open);
+            oxigenPanel.gameObject.SetActive(!open);
+            healthPanel.gameObject.SetActive(!open);
         }   
     }
 
