@@ -45,6 +45,7 @@ public class HarpoonBehaviour : MonoBehaviour
             var missile = Instantiate(harpoonMissile, fire.transform.position, Quaternion.identity).GetComponent<MissileComponent>();
             missile.Setup(missileStrenght, missileDistance, PointHelper.DirectionToMouse(fire.transform));
             an.Play("harpoon_shoot");
+            SFXHelper.PlayEffect(SFXs.ShootHarpoon);
         } else return;
     }
 }
