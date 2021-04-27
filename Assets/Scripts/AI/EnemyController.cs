@@ -104,7 +104,14 @@ public class EnemyController : MonoBehaviour
 
         //Dead
         if(hc.isDead)
+        {
+            if(this.gameObject.name.Contains("Big Fish Enemy"))
+                SFXHelper.PlayEffect(SFXs.BigFishDeath);
+            if(this.gameObject.name.Contains("Jelly Fish Enemy"))
+                SFXHelper.PlayEffect(SFXs.JellyFishDeath);
+
             Destroy(this.gameObject);
+        }
 
         /* BEHAVIOUR ACTIONS */
         timeSinceLastAction += Time.deltaTime;
