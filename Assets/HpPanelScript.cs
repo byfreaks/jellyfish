@@ -21,7 +21,7 @@ public class HpPanelScript : MonoBehaviour
         for (int i = 0; i < n; i++)
         {
             int dist = 7;
-            var pos = new Vector2(  hgap+firstPos.position.x + (hgap + dist)*i, firstPos.position.y);
+            var pos = new Vector2(firstPos.position.x + (dist*4 + hgap)*i , firstPos.position.y);
             var o = Instantiate(barPrefab, pos, Quaternion.identity, this.transform);
             barPrefabList.Add(o);
         }

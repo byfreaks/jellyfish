@@ -366,7 +366,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // rb.velocity = movement;
-        controller.Move(movement * Time.deltaTime);
+        if(!hc.isDead)
+            controller.Move(movement * Time.deltaTime);
 
         if(timeSinceLastSwam > timeToFreeRoam)
             controller.Move( (inputDirection * freeRoamSpeed) * Time.deltaTime );

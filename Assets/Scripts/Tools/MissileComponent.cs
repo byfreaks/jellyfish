@@ -17,11 +17,13 @@ public class MissileComponent : MonoBehaviour
     private float resistance = 25f;
 
     private bool launched = false;
+    private bool launch = false;
 
-    public void Setup(float speed, float distance, Vector2 direction){
+    public void Setup(float speed, float distance, Vector2 direction, bool launch = true){
         this.speed = speed;
         this.distance = distance;
         this.direction = direction;
+        this.launch = launch;
     }
 
     void Start()
@@ -35,7 +37,8 @@ public class MissileComponent : MonoBehaviour
 
         bc = gameObject.AddComponent<BoxCollider2D>();
 
-        Launch();
+        if(launch)
+            Launch();
 
     }
 

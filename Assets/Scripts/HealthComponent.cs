@@ -76,6 +76,10 @@ public class HealthComponent : MonoBehaviour
         isDead = false;
         var col = this.gameObject.GetComponent<SpriteRenderer>().sharedMaterial.color;
         this.gameObject.GetComponent<SpriteRenderer>().sharedMaterial.SetColor("_Tint", new Color(col.r, col.g, col.b, 0));
+        if(isInPlayer){
+            pc.UpdateHpPanel();
+        }
+
     }
 
     public void Kill(){

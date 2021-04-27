@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: OxygenDuration
   m_EditorClassIdentifier: 
   resourceName: UPOxygen
-  fiber: 5
-  silicon: 5
-  copperOre: 5
+  fiber: 4
+  silicon: 4
+  copperOre: 3

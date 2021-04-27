@@ -7,16 +7,20 @@ public class ShopManager : MonoBehaviour
     public ShopManager current;
     public PlayerController player;
     public InventoryManager inventoryManager;
-    public ShopData referenceI3X3;
-    public ShopData referenceI3X4;
-    public ShopData referenceI4X4;
-    public ShopData referenceI5X5;
+    // public ShopData referenceI3X3;
+    // public ShopData referenceI3X4;
+    // public ShopData referenceI4X4;
+    // public ShopData referenceI5X5;
 
     public ShopData referenceOxygen;
 
     public ShopData referenceTanks;
 
     public ShopData referenceHarpoon;
+
+
+    public GameObject purchaseableHarpoon, purchaseableTank;
+
     private void Awake() {
         current = this;
     }
@@ -26,20 +30,23 @@ public class ShopManager : MonoBehaviour
         {
             case ShopUpgradeInventoryTypeHelper.oxygen:
                 if(current.validateBuy(referenceOxygen)){
-                    player.SetMaxOxygen(60);
+                    player.SetMaxOxygen(320);
                     current.confirmBuy(referenceOxygen);
                 }
                 break;
             case ShopUpgradeInventoryTypeHelper.harpoon:
                 if(current.validateBuy(referenceHarpoon)){
-                    Debug.Log("COMPRA DE INVENTARIO");
+                    current.confirmBuy(referenceHarpoon);
+                    var h = Instantiate(purchaseableHarpoon, new Vector2(15, -10), Quaternion.identity).GetComponent<MissileComponent>();
+                    h.Setup(0, 0f, Vector2.zero, false);
                 }else{
                     Debug.Log("COMPRA DE INVENTARIO FALLIDA (FALTA DE RECURSOS)");
                 }
                 break;
             case ShopUpgradeInventoryTypeHelper.tanks:
                 if(current.validateBuy(referenceTanks)){
-                    Debug.Log("COMPRA DE INVENTARIO");
+                    current.confirmBuy(referenceTanks);
+                    Instantiate(purchaseableTank, new Vector2(15, -10), Quaternion.identity);
                 }else{
                     Debug.Log("COMPRA DE INVENTARIO FALLIDA (FALTA DE RECURSOS)");
                 }
