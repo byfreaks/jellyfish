@@ -189,6 +189,7 @@ public class PlayerController : MonoBehaviour
         if(hc.isDead){
             st.Dead();
             an.Play("player_death");
+            SFXHelper.PlayEffect(SFXs.Death);
             if(coroutine == null)
                 coroutine = StartCoroutine( ResetPlayerAfterSeconds(secondsToRespawn) );
         }
