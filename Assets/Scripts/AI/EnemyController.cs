@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 
+    float damageCooldown = 0.8f;
+    float currentCooldown;
+
     #region [REVIEW] Move to other Scripts
     private PlayerController player;
     public PlayerController Player
@@ -76,6 +79,7 @@ public class EnemyController : MonoBehaviour
         sr = gameObject.AddComponent<SpriteRenderer>();
         sr.sprite = enemyData.sprite;
         sr.material = enemyData.material;
+        sr.sortingLayerName = "Game";
 
         rb = gameObject.AddComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
@@ -94,6 +98,10 @@ public class EnemyController : MonoBehaviour
     }
     void Update()
     {
+
+        if(currentCooldown >= 0)
+            currentCooldown -= Time.deltaTime;
+
         //Dead
         if(hc.isDead)
             Destroy(this.gameObject);
@@ -115,9 +123,17 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region Damage
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.name == "Fire" || other.gameObject.name == "PickableHarpoonMissile"){
+    private void OnTriggerStay2D(Collider2D other) {
+        if(other.gameObject.name == "Fire" && currentCooldown <= 0){
             hc.Hurt();
+            currentCooldown = damageCooldown;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.name.Contains("PickableHarpoonMissile")){
+            hc.Hurt();
+            other.gameObject.name = "PickableHarpoonRestingMissile";
         }
     }
     #endregion

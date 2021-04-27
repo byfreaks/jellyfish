@@ -149,6 +149,29 @@ public class PlayerController : MonoBehaviour
         GameObject.Find("PIxel Perfect Camera").GetComponent<CameraScript>().ResetClamp(1);
     }
 
+    public int CountItems(string name){
+        int it = 0;
+        foreach (var item in inventoryManager.currentItems)
+        {
+            if (item.name.Contains(name)) it++;
+        }
+        return it;
+    }
+
+    public void DeleteHarpoon(){
+        var found = inventoryManager.currentItems.Find(h => h.name.Contains("Missile"));
+        if(found) inventoryManager.currentItems.Remove(found);
+    }
+
+     public void DeleteOxytank(){
+        var found = inventoryManager.currentItems.Find(h => h.name.Contains("Oxygen"));
+        if(found) inventoryManager.currentItems.Remove(found);
+    }
+
+    public void SetMaxOxygen(int val){
+        maxOxygen = val;
+    }
+
     void Update()
     {
         // Debug.Log(controller.collisions.below);
@@ -212,7 +235,7 @@ public class PlayerController : MonoBehaviour
             SelectTool(harpoonGun);
             iconsPanel.SetUsing(1);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha2)){
+        if(Input.GetKeyDown(KeyCode.Alpha2) && CountItems("Oxygen") > 0){
             ConsumeOxytank();
             iconsPanel.SetUsing(2);
             if(currentOxygen > maxOxygen)
